@@ -20,8 +20,8 @@ type conf struct {
 }
 
 func TestGetPhoneList(t *testing.T) {
-	var conf conf
-	yamlFile, err := ioutil.ReadFile("conf.yaml")
+    var conf conf
+    yamlFile, err := ioutil.ReadFile("conf.yaml")
     if err != nil {
         log.Printf("yamlFile.Get err #%v ", err)
     }
