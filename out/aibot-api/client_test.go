@@ -25,7 +25,7 @@ func TestGetPhoneList(t *testing.T) {
     if err != nil {
         log.Printf("yamlFile.Get err #%v ", err)
     }
-	err = yaml.Unmarshal(yamlFile, &conf)
+    err = yaml.Unmarshal(yamlFile, &conf)
     if err != nil {
         log.Fatalf("Unmarshal: %v", err)
 	}
