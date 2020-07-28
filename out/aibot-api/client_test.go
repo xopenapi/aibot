@@ -15,8 +15,8 @@ import(
 
 type conf struct {
     AppKey 		string   	`yaml:"appKey"` //yaml：yaml格式 enabled：属性的为enabled
-    AppSecret   string 		`yaml:"appSecret"`
-	TenantSign	string		`yaml:"tenantSign"`
+	AppSecret   string 		`yaml:"appSecret"`
+    TenantSign	string		`yaml:"tenantSign"`
 }
 
 func TestGetPhoneList(t *testing.T) {
