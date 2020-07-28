@@ -14,20 +14,20 @@ import(
 
 
 type conf struct {
-    AppKey 		string   	`yaml:"appKey"` //yaml：yaml格式 enabled：属性的为enabled
+	AppKey 		string   	`yaml:"appKey"` //yaml：yaml格式 enabled：属性的为enabled
 	AppSecret   string 		`yaml:"appSecret"`
-    TenantSign	string		`yaml:"tenantSign"`
+	TenantSign	string		`yaml:"tenantSign"`
 }
 
 func TestGetPhoneList(t *testing.T) {
-    var conf conf
-    yamlFile, err := ioutil.ReadFile("conf.yaml")
-    if err != nil {
-        log.Printf("yamlFile.Get err #%v ", err)
-    }
-    err = yaml.Unmarshal(yamlFile, &conf)
-    if err != nil {
-        log.Fatalf("Unmarshal: %v", err)
+	var conf conf
+	yamlFile, err := ioutil.ReadFile("conf.yaml")
+	if err != nil {
+		log.Printf("yamlFile.Get err #%v ", err)
+	}
+	err = yaml.Unmarshal(yamlFile, &conf)
+	if err != nil {
+		log.Fatalf("Unmarshal: %v", err)
 	}
 	
 	cfg := aibot.NewConfiguration()	
