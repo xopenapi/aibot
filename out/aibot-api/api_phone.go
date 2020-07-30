@@ -14,6 +14,7 @@ import (
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
+	"github.com/antihax/optional"
 )
 
 // Linger please
@@ -24,21 +25,37 @@ var (
 // PhoneApiService PhoneApi service
 type PhoneApiService service
 
+// GetPhoneListOpts Optional parameters for the method 'GetPhoneList'
+type GetPhoneListOpts struct {
+    AppKey optional.String
+    AppSecret optional.String
+    TenantSign optional.String
+    Version optional.String
+    Timestamp optional.String
+    Signature optional.String
+}
+
 /*
 GetPhoneList 通过接口可以获取所有可用的外呼线路的列表
 通过接口可以获取所有可用的外呼线路的列表
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param body
-@return GetPhoneListResp
+ * @param optional nil or *GetPhoneListOpts - Optional Parameters:
+ * @param "AppKey" (optional.String) - 
+ * @param "AppSecret" (optional.String) - 
+ * @param "TenantSign" (optional.String) - 
+ * @param "Version" (optional.String) - 
+ * @param "Timestamp" (optional.String) - 
+ * @param "Signature" (optional.String) - 
+@return GetPhoneListRsp
 */
-func (a *PhoneApiService) GetPhoneList(ctx _context.Context, body GetPhoneListReq) (GetPhoneListResp, *_nethttp.Response, error) {
+func (a *PhoneApiService) GetPhoneList(ctx _context.Context, localVarOptionals *GetPhoneListOpts) (GetPhoneListRsp, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  GetPhoneListResp
+		localVarReturnValue  GetPhoneListRsp
 	)
 
 	// create path and map variables
@@ -47,6 +64,24 @@ func (a *PhoneApiService) GetPhoneList(ctx _context.Context, body GetPhoneListRe
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	if localVarOptionals != nil && localVarOptionals.AppKey.IsSet() {
+		localVarQueryParams.Add("appKey", parameterToString(localVarOptionals.AppKey.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.AppSecret.IsSet() {
+		localVarQueryParams.Add("appSecret", parameterToString(localVarOptionals.AppSecret.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.TenantSign.IsSet() {
+		localVarQueryParams.Add("tenantSign", parameterToString(localVarOptionals.TenantSign.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Version.IsSet() {
+		localVarQueryParams.Add("version", parameterToString(localVarOptionals.Version.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Timestamp.IsSet() {
+		localVarQueryParams.Add("timestamp", parameterToString(localVarOptionals.Timestamp.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Signature.IsSet() {
+		localVarQueryParams.Add("signature", parameterToString(localVarOptionals.Signature.Value(), ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -64,8 +99,6 @@ func (a *PhoneApiService) GetPhoneList(ctx _context.Context, body GetPhoneListRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = &body
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err

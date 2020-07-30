@@ -33,19 +33,28 @@ All URIs are relative to *https://openapi.tanyibot.com/apiOpen/v1*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *IsvApi* | [**GenSubAccountIsv**](docs/IsvApi.md#gensubaccountisv) | **Post** /isv/genSubAccountIsv | 通过此接口可生成子账号的ISV账号
+*IsvApi* | [**GetIsvList**](docs/IsvApi.md#getisvlist) | **Post** /isv/getIsvList | 获取isv列表
+*IsvApi* | [**UpdateIsvInfo**](docs/IsvApi.md#updateisvinfo) | **Post** /isv/updateIsvInfo | 修改ISV对象的公司签名和回调地址
 *PhoneApi* | [**GetPhoneList**](docs/PhoneApi.md#getphonelist) | **Get** /phone/getPhoneList | 通过接口可以获取所有可用的外呼线路的列表
 *PhoneApi* | [**UpdatePhoneInfoByTenantPhoneNumberId**](docs/PhoneApi.md#updatephoneinfobytenantphonenumberid) | **Post** /phone/updatePhoneInfoByTenantPhoneNumberId | 通过此接口修改线路的归属地、行业、黑名单，只能修改归属客户自己的线路
 *PhoneApi* | [**UpdatePhonePriceByTenantPhoneNumberId**](docs/PhoneApi.md#updatephonepricebytenantphonenumberid) | **Post** /phone/updatePhonePriceByTenantPhoneNumberId | 修改绑定客户线路的价格
+*TenantApi* | [**GetTenant**](docs/TenantApi.md#gettenant) | **Get** /tenant/getTenant | 获取公司列表接口
 
 
 ## Documentation For Models
 
  - [ApiResponse](docs/ApiResponse.md)
  - [BaseReq](docs/BaseReq.md)
- - [GetPhoneListReq](docs/GetPhoneListReq.md)
- - [GetPhoneListResp](docs/GetPhoneListResp.md)
+ - [GetIsvListRsp](docs/GetIsvListRsp.md)
+ - [GetIsvListRspAllOf](docs/GetIsvListRspAllOf.md)
+ - [GetIsvListRspAllOfData](docs/GetIsvListRspAllOfData.md)
+ - [GetPhoneListRsp](docs/GetPhoneListRsp.md)
+ - [GetPhoneListRspAllOf](docs/GetPhoneListRspAllOf.md)
  - [GetSubAccountIsvReq](docs/GetSubAccountIsvReq.md)
  - [GetSubAccountIsvResp](docs/GetSubAccountIsvResp.md)
+ - [GetTenantRsp](docs/GetTenantRsp.md)
+ - [GetTenantRspAllOf](docs/GetTenantRspAllOf.md)
+ - [UpdateIsvInfoReq](docs/UpdateIsvInfoReq.md)
  - [UpdatePhoneInfoByTenantPhoneNumberIdReq](docs/UpdatePhoneInfoByTenantPhoneNumberIdReq.md)
  - [UpdatePhoneInfoByTenantPhoneNumberIdReqDeadArea](docs/UpdatePhoneInfoByTenantPhoneNumberIdReqDeadArea.md)
 

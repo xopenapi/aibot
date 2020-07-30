@@ -12,17 +12,18 @@ import javax.validation.constraints.Size
 
 /**
  * 
- * @param code 响应码
- * @param requestId 请求id
- * @param resultMsg 响应说明
+ * @param tenantSign 
+ * @param callbackUrl 
+ * @param smsCallbackUrl 
  */
-data class APIResponse(
+data class UpdateIsvInfoReq(
 
-    @field:JsonProperty("code") val code: kotlin.Int? = null,
+    @get:NotNull 
+    @field:JsonProperty("tenantSign") val tenantSign: kotlin.String,
 
-    @field:JsonProperty("requestId") val requestId: kotlin.String? = null,
+    @field:JsonProperty("callbackUrl") val callbackUrl: kotlin.String? = null,
 
-    @field:JsonProperty("resultMsg") val resultMsg: kotlin.String? = null
+    @field:JsonProperty("smsCallbackUrl") val smsCallbackUrl: kotlin.String? = null
 ) {
 
 }

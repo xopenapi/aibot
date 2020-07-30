@@ -1,10 +1,6 @@
 package org.openapitools.api
 
-import org.openapitools.model.APIResponse
-import org.openapitools.model.GetIsvListRsp
-import org.openapitools.model.GetSubAccountIsvReq
-import org.openapitools.model.GetSubAccountIsvResp
-import org.openapitools.model.UpdateIsvInfoReq
+import org.openapitools.model.GetTenantRsp
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -36,36 +32,14 @@ import kotlin.collections.Map
 @RestController
 @Validated
 @RequestMapping("\${api.base-path:/apiOpen/v1}")
-class IsvApiController() {
+class TenantApiController() {
 
 
     @RequestMapping(
-        value = ["/isv/genSubAccountIsv"],
+        value = ["/tenant/getTenant"],
         produces = ["application/json"], 
-        consumes = ["application/json"],
-        method = [RequestMethod.POST])
-    fun genSubAccountIsv( @Valid @RequestBody body: GetSubAccountIsvReq
-): ResponseEntity<GetSubAccountIsvResp> {
-        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
-    }
-
-
-    @RequestMapping(
-        value = ["/isv/getIsvList"],
-        produces = ["application/json"], 
-        method = [RequestMethod.POST])
-    fun getIsvList(): ResponseEntity<GetIsvListRsp> {
-        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
-    }
-
-
-    @RequestMapping(
-        value = ["/isv/updateIsvInfo"],
-        produces = ["application/json"], 
-        consumes = ["application/json"],
-        method = [RequestMethod.POST])
-    fun updateIsvInfo( @Valid @RequestBody body: UpdateIsvInfoReq
-): ResponseEntity<APIResponse> {
+        method = [RequestMethod.GET])
+    fun getTenant(): ResponseEntity<GetTenantRsp> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 }

@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## GetPhoneList
 
-> GetPhoneListResp GetPhoneList(ctx, body)
+> GetPhoneListRsp GetPhoneList(ctx, optional)
 
 通过接口可以获取所有可用的外呼线路的列表
 
@@ -24,11 +24,25 @@ Method | HTTP request | Description
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**body** | [**GetPhoneListReq**](GetPhoneListReq.md)|  | 
+ **optional** | ***GetPhoneListOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a GetPhoneListOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **appKey** | **optional.String**|  | 
+ **appSecret** | **optional.String**|  | 
+ **tenantSign** | **optional.String**|  | 
+ **version** | **optional.String**|  | 
+ **timestamp** | **optional.String**|  | 
+ **signature** | **optional.String**|  | 
 
 ### Return type
 
-[**GetPhoneListResp**](GetPhoneListResp.md)
+[**GetPhoneListRsp**](GetPhoneListRsp.md)
 
 ### Authorization
 

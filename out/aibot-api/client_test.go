@@ -10,6 +10,7 @@ import(
 	"gopkg.in/yaml.v2"
 	"log"
 	"io/ioutil"
+	"github.com/antihax/optional"
 )
 
 
@@ -46,21 +47,28 @@ func TestGetPhoneList(t *testing.T) {
 
 	signature := aibot.SignArr(params, conf.TenantSign)
 
-	req := aibot.GetPhoneListReq{
-		AppKey: conf.AppKey,
-		AppSecret: conf.AppSecret,
-		TenantSign: conf.TenantSign,
-		Version: version,
-		Timestamp: timestamp,
-		Signature: signature,
+	req := &aibot.GetPhoneListOpts{
+		AppKey: optional.NewString(conf.AppKey),
+		AppSecret: optional.NewString(conf.AppSecret),
+		TenantSign: optional.NewString(conf.TenantSign),
+		Version: optional.NewString(version),
+		Timestamp: optional.NewString(timestamp),
+		Signature: optional.NewString(signature),
 	}
 
-	r, _, err := client.PhoneApi.GetPhoneList(context.Background(), req)
+	r1, _, err := client.IsvApi.GetIsvList(context.Background())
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	t.Logf("isvList: %v", r1)
+
+	r2, _, err := client.PhoneApi.GetPhoneList(context.Background(), req)
 	if err != nil {
 		t.Error(err)
 		return
 	}
 
-	jsonBytes, _ := json.Marshal(r)
-	t.Logf("%s", string(jsonBytes))
+	jsonBytes, _ := json.Marshal(r2)
+	t.Logf("%s, requestId: %s", string(jsonBytes), r2.RequestId)
 }

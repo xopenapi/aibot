@@ -1,9 +1,7 @@
 package org.openapitools.api
 
 import org.openapitools.model.APIResponse
-import org.openapitools.model.BaseReq
-import org.openapitools.model.GetPhoneListReq
-import org.openapitools.model.GetPhoneListResp
+import org.openapitools.model.GetPhoneListRsp
 import org.openapitools.model.UpdatePhoneInfoByTenantPhoneNumberIdReq
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -43,8 +41,13 @@ class PhoneApiController() {
         value = ["/phone/getPhoneList"],
         produces = ["application/json"], 
         method = [RequestMethod.GET])
-    fun getPhoneList( @Valid @RequestBody body: GetPhoneListReq
-): ResponseEntity<GetPhoneListResp> {
+    fun getPhoneList( @RequestParam(value = "appKey", required = false) appKey: kotlin.String?
+, @RequestParam(value = "appSecret", required = false) appSecret: kotlin.String?
+, @RequestParam(value = "tenantSign", required = false) tenantSign: kotlin.String?
+, @RequestParam(value = "version", required = false) version: kotlin.String?
+, @RequestParam(value = "timestamp", required = false) timestamp: kotlin.String?
+, @RequestParam(value = "signature", required = false) signature: kotlin.String?
+): ResponseEntity<GetPhoneListRsp> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 

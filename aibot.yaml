@@ -1,21 +1,46 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
-  description: 'aibot api'
+  description: "aibot api"
   version: 1.0.0
   title: AIBot open api
   license:
     name: Apache-2.0
-    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+    url: "https://www.apache.org/licenses/LICENSE-2.0.html"
 host: openapi.tanyibot.com
 basePath: /apiOpen/v1
 tags:
   - name: isv
     description: isv
+  - name: tenant
+    description: tenant
   - name: phone
     description: phone
 schemes:
   - https
 paths:
+  /isv/updateIsvInfo:
+    post:
+      tags:
+        - isv
+      summary: 修改ISV对象的公司签名和回调地址
+      description: 修改ISV对象的公司签名和回调地址
+      operationId: updateIsvInfo
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateIsvInfoReq"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/APIResponse"
   /isv/genSubAccountIsv:
     post:
       tags:
@@ -30,15 +55,43 @@ paths:
       parameters:
         - in: body
           name: body
-          description: ''
+          description: ""
           required: true
           schema:
-            $ref: '#/definitions/GetSubAccountIsvReq'
+            $ref: "#/definitions/GetSubAccountIsvReq"
       responses:
-        '200':
+        "200":
           description: successful operation
           schema:
-            $ref: '#/definitions/GetSubAccountIsvResp'
+            $ref: "#/definitions/GetSubAccountIsvResp"
+  /isv/getIsvList:
+    post:
+      tags:
+        - isv
+      summary: 获取isv列表
+      description: 获取isv列表
+      operationId: getIsvList
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/GetIsvListRsp"
+  /tenant/getTenant:
+    get:
+      tags:
+        - tenant
+      summary: 获取公司列表接口
+      description: 获取公司列表接口
+      operationId: getTenant
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/GetTenantRsp"
   /phone/getPhoneList:
     get:
       tags:
@@ -49,17 +102,29 @@ paths:
       produces:
         - application/json
       parameters:
-        - in: body
-          name: body
-          description: ''
-          required: true
-          schema:
-            $ref: '#/definitions/GetPhoneListReq'
+        - in: query
+          name: appKey
+          type: string
+        - in: query
+          name: appSecret
+          type: string
+        - in: query
+          name: tenantSign
+          type: string
+        - in: query
+          name: version
+          type: string
+        - in: query
+          name: timestamp
+          type: string
+        - in: query
+          name: signature
+          type: string
       responses:
-        '200':
+        "200":
           description: successful operation
           schema:
-            $ref: '#/definitions/GetPhoneListResp'
+            $ref: "#/definitions/GetPhoneListRsp"
   /phone/updatePhoneInfoByTenantPhoneNumberId:
     post:
       tags:
@@ -74,15 +139,15 @@ paths:
       parameters:
         - in: body
           name: body
-          description: ''
+          description: ""
           required: true
           schema:
-            $ref: '#/definitions/UpdatePhoneInfoByTenantPhoneNumberIdReq'
+            $ref: "#/definitions/UpdatePhoneInfoByTenantPhoneNumberIdReq"
       responses:
-        '200':
+        "200":
           description: successful operation
           schema:
-            $ref: '#/definitions/APIResponse'
+            $ref: "#/definitions/APIResponse"
   /phone/updatePhonePriceByTenantPhoneNumberId:
     post:
       tags:
@@ -93,14 +158,55 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: successful operation
           schema:
-            $ref: '#/definitions/APIResponse'
+            $ref: "#/definitions/APIResponse"
 definitions:
+  GetTenantRsp:
+    title: GetTenantRsp
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          tenantName:
+            type: string
+          tenantId:
+            type: string
+  GetIsvListRsp:
+    title: GetIsvListRsp
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              type: object
+              properties:
+                tenantSign:
+                  type: string
+                appKey:
+                  type: string
+                appSecret:
+                  type: string
+                callbackUrl:
+                  type: string
+  UpdateIsvInfoReq:
+    title: UpdateIsvInfoReq
+    type: object
+    required:
+      - tenantSign
+    properties:
+      tenantSign:
+        type: string
+      callbackUrl:
+        type: string
+      smsCallbackUrl:
+        type: string
   GetSubAccountIsvReq:
     title: GetSubAccountIsvReq
-    description: ''
+    description: ""
     type: object
     required:
       - tenantSign
@@ -112,7 +218,7 @@ definitions:
         type: string
   GetSubAccountIsvResp:
     title: GetSubAccountIsvResp
-    description: ''
+    description: ""
     properties:
       code:
         type: integer
@@ -130,57 +236,51 @@ definitions:
       appKey:
         type: string
       appSecret:
-        type: string      
-  GetPhoneListReq:
+        type: string
+  GetPhoneListRsp:
+    title: GetPhoneListRsp
+    description: ""
     allOf:
-      - $ref: '#/definitions/BaseReq'
+      - $ref: "#/definitions/APIResponse"
       - type: object
-        description: ''
-  GetPhoneListResp:
-    title: APIResponse
-    description: ''
-    properties:
-      code:
-        type: integer
-        format: int32
-        description: 响应码
-      tenantPhoneNumberId:
-        type: integer
-        format: int64
-        description: 电话id
-      phoneNumber:
-        type: string
-        description: 电话号码
-      phoneName:
-        type: string
-        description: 电话号码名称
-      phoneType:
-        type: string
-        description: (MOBILE, "手机"),(LANDLINE, "固话"),(UNFIXED_CALL, "无主叫固话")
-      localBillRate:
-        type: string
-        description: 本地话费（单位：厘）
-      otherBillRate:
-        type: string
-        description: 外地话费（单位：厘）
-      callOutIndustry:
-        type: string
-        description: (FINANCE, "金融"),(OTHER, "其他")
-      areaCode:
-        type: string
-        description: 归属地区号
-      province:
-        type: string
-        description: 归属地省
-      city:
-        type: string
-        description: 归属地市
-      deadArea:
-        type: string
-        description: 无法外呼地区
+        properties:
+          tenantPhoneNumberId:
+            type: integer
+            format: int64
+            description: 电话id
+          phoneNumber:
+            type: string
+            description: 电话号码
+          phoneName:
+            type: string
+            description: 电话号码名称
+          phoneType:
+            type: string
+            description: (MOBILE, "手机"),(LANDLINE, "固话"),(UNFIXED_CALL, "无主叫固话")
+          localBillRate:
+            type: string
+            description: 本地话费（单位：厘）
+          otherBillRate:
+            type: string
+            description: 外地话费（单位：厘）
+          callOutIndustry:
+            type: string
+            description: (FINANCE, "金融"),(OTHER, "其他")
+          areaCode:
+            type: string
+            description: 归属地区号
+          province:
+            type: string
+            description: 归属地省
+          city:
+            type: string
+            description: 归属地市
+          deadArea:
+            type: string
+            description: 无法外呼地区
   UpdatePhoneInfoByTenantPhoneNumberIdReq:
     title: UpdatePhoneInfoByTenantPhoneNumberIdReq
-    description: ''
+    description: ""
     properties:
       tenantPhoneNumberId:
         type: int
@@ -216,7 +316,7 @@ definitions:
             type: string
   BaseReq:
     title: BaseReq
-    description: ''
+    description: ""
     properties:
       appKey:
         type: string
@@ -232,10 +332,10 @@ definitions:
         type: string
   APIResponse:
     title: APIResponse
-    description: ''
+    description: ""
     properties:
       code:
-        type: int
+        type: integer
         format: int32
         description: 响应码
       requestId:

@@ -51,6 +51,8 @@ type APIClient struct {
 	IsvApi *IsvApiService
 
 	PhoneApi *PhoneApiService
+
+	TenantApi *TenantApiService
 }
 
 type service struct {
@@ -71,6 +73,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	// API Services
 	c.IsvApi = (*IsvApiService)(&c.common)
 	c.PhoneApi = (*PhoneApiService)(&c.common)
+	c.TenantApi = (*TenantApiService)(&c.common)
 
 	return c
 }
