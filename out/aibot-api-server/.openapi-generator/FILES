@@ -19,6 +19,7 @@ src/main/kotlin/org/openapitools/model/GetSubAccountIsvReq.kt
 src/main/kotlin/org/openapitools/model/GetSubAccountIsvResp.kt
 src/main/kotlin/org/openapitools/model/GetTenantRsp.kt
 src/main/kotlin/org/openapitools/model/GetTenantRspAllOf.kt
+src/main/kotlin/org/openapitools/model/Phone.kt
 src/main/kotlin/org/openapitools/model/UpdateIsvInfoReq.kt
 src/main/kotlin/org/openapitools/model/UpdatePhoneInfoByTenantPhoneNumberIdReq.kt
 src/main/kotlin/org/openapitools/model/UpdatePhoneInfoByTenantPhoneNumberIdReqDeadArea.kt

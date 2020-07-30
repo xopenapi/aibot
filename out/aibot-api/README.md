@@ -54,6 +54,7 @@ Class | Method | HTTP request | Description
  - [GetSubAccountIsvResp](docs/GetSubAccountIsvResp.md)
  - [GetTenantRsp](docs/GetTenantRsp.md)
  - [GetTenantRspAllOf](docs/GetTenantRspAllOf.md)
+ - [Phone](docs/Phone.md)
  - [UpdateIsvInfoReq](docs/UpdateIsvInfoReq.md)
  - [UpdatePhoneInfoByTenantPhoneNumberIdReq](docs/UpdatePhoneInfoByTenantPhoneNumberIdReq.md)
  - [UpdatePhoneInfoByTenantPhoneNumberIdReqDeadArea](docs/UpdatePhoneInfoByTenantPhoneNumberIdReqDeadArea.md)

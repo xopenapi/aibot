@@ -41,13 +41,7 @@ class PhoneApiController() {
         value = ["/phone/getPhoneList"],
         produces = ["application/json"], 
         method = [RequestMethod.GET])
-    fun getPhoneList( @RequestParam(value = "appKey", required = false) appKey: kotlin.String?
-, @RequestParam(value = "appSecret", required = false) appSecret: kotlin.String?
-, @RequestParam(value = "tenantSign", required = false) tenantSign: kotlin.String?
-, @RequestParam(value = "version", required = false) version: kotlin.String?
-, @RequestParam(value = "timestamp", required = false) timestamp: kotlin.String?
-, @RequestParam(value = "signature", required = false) signature: kotlin.String?
-): ResponseEntity<GetPhoneListRsp> {
+    fun getPhoneList(): ResponseEntity<GetPhoneListRsp> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 

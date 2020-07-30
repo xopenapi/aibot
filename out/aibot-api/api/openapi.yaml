@@ -90,31 +90,6 @@ paths:
     get:
       description: 通过接口可以获取所有可用的外呼线路的列表
       operationId: getPhoneList
-      parameters:
-      - in: query
-        name: appKey
-        schema:
-          type: string
-      - in: query
-        name: appSecret
-        schema:
-          type: string
-      - in: query
-        name: tenantSign
-        schema:
-          type: string
-      - in: query
-        name: version
-        schema:
-          type: string
-      - in: query
-        name: timestamp
-        schema:
-          type: string
-      - in: query
-        name: signature
-        schema:
-          type: string
       responses:
         "200":
           content:
@@ -238,6 +213,45 @@ components:
       - $ref: '#/components/schemas/GetPhoneListRsp_allOf'
       description: ""
       title: GetPhoneListRsp
+    Phone:
+      description: Phone
+      properties:
+        tenantPhoneNumberId:
+          description: 电话id
+          format: int64
+          type: integer
+        phoneNumber:
+          description: 电话号码
+          type: string
+        phoneName:
+          description: 电话号码名称
+          type: string
+        phoneType:
+          description: (MOBILE, "手机"),(LANDLINE, "固话"),(UNFIXED_CALL, "无主叫固话")
+          type: string
+        localBillRate:
+          description: 本地话费（单位：厘）
+          type: string
+        otherBillRate:
+          description: 外地话费（单位：厘）
+          type: string
+        callOutIndustry:
+          description: (FINANCE, "金融"),(OTHER, "其他")
+          type: string
+        areaCode:
+          description: 归属地区号
+          type: string
+        province:
+          description: 归属地省
+          type: string
+        city:
+          description: 归属地市
+          type: string
+        deadArea:
+          description: 无法外呼地区
+          type: string
+      title: Phone
+      type: object
     UpdatePhoneInfoByTenantPhoneNumberIdReq:
       description: ""
       example:
@@ -331,40 +345,10 @@ components:
           type: array
     GetPhoneListRsp_allOf:
       properties:
-        tenantPhoneNumberId:
-          description: 电话id
-          format: int64
-          type: integer
-        phoneNumber:
-          description: 电话号码
-          type: string
-        phoneName:
-          description: 电话号码名称
-          type: string
-        phoneType:
-          description: (MOBILE, "手机"),(LANDLINE, "固话"),(UNFIXED_CALL, "无主叫固话")
-          type: string
-        localBillRate:
-          description: 本地话费（单位：厘）
-          type: string
-        otherBillRate:
-          description: 外地话费（单位：厘）
-          type: string
-        callOutIndustry:
-          description: (FINANCE, "金融"),(OTHER, "其他")
-          type: string
-        areaCode:
-          description: 归属地区号
-          type: string
-        province:
-          description: 归属地省
-          type: string
-        city:
-          description: 归属地市
-          type: string
-        deadArea:
-          description: 无法外呼地区
-          type: string
+        data:
+          items:
+            $ref: '#/components/schemas/Phone'
+          type: array
     UpdatePhoneInfoByTenantPhoneNumberIdReq_deadArea:
       description: 线路黑名单地址
       example:

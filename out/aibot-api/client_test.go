@@ -10,7 +10,6 @@ import(
 	"gopkg.in/yaml.v2"
 	"log"
 	"io/ioutil"
-	"github.com/antihax/optional"
 )
 
 
@@ -44,31 +43,29 @@ func TestGetPhoneList(t *testing.T) {
 		aibot.KV{ K: "version", V: version },
 		aibot.KV{ K: "timestamp", V: timestamp },
 	}
-
 	signature := aibot.SignArr(params, conf.TenantSign)
-
-	req := &aibot.GetPhoneListOpts{
-		AppKey: optional.NewString(conf.AppKey),
-		AppSecret: optional.NewString(conf.AppSecret),
-		TenantSign: optional.NewString(conf.TenantSign),
-		Version: optional.NewString(version),
-		Timestamp: optional.NewString(timestamp),
-		Signature: optional.NewString(signature),
-	}
+	cfg.AddDefaultHeader("appKey", conf.AppKey)
+	cfg.AddDefaultHeader("appSecret", conf.AppSecret)
+	cfg.AddDefaultHeader("tenantSign", conf.TenantSign)
+	cfg.AddDefaultHeader("version", version)
+	cfg.AddDefaultHeader("timestamp", timestamp)
+	cfg.AddDefaultHeader("signature", signature)
 
 	r1, _, err := client.IsvApi.GetIsvList(context.Background())
 	if err != nil {
 		t.Error(err)
 		return
 	}
-	t.Logf("isvList: %v", r1)
 
-	r2, _, err := client.PhoneApi.GetPhoneList(context.Background(), req)
+	jsonBytes1, _ := json.Marshal(r1)
+	t.Logf("isvList: %v", string(jsonBytes1))
+
+	r2, _, err := client.PhoneApi.GetPhoneList(context.Background())
 	if err != nil {
 		t.Error(err)
 		return
 	}
 
-	jsonBytes, _ := json.Marshal(r2)
-	t.Logf("%s, requestId: %s", string(jsonBytes), r2.RequestId)
+	jsonBytes2, _ := json.Marshal(r2)
+	t.Logf("%s", string(jsonBytes2))
 }

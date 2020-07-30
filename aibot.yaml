@@ -101,25 +101,6 @@ paths:
       operationId: getPhoneList
       produces:
         - application/json
-      parameters:
-        - in: query
-          name: appKey
-          type: string
-        - in: query
-          name: appSecret
-          type: string
-        - in: query
-          name: tenantSign
-          type: string
-        - in: query
-          name: version
-          type: string
-        - in: query
-          name: timestamp
-          type: string
-        - in: query
-          name: signature
-          type: string
       responses:
         "200":
           description: successful operation
@@ -244,40 +225,49 @@ definitions:
       - $ref: "#/definitions/APIResponse"
       - type: object
         properties:
-          tenantPhoneNumberId:
-            type: integer
-            format: int64
-            description: 电话id
-          phoneNumber:
-            type: string
-            description: 电话号码
-          phoneName:
-            type: string
-            description: 电话号码名称
-          phoneType:
-            type: string
-            description: (MOBILE, "手机"),(LANDLINE, "固话"),(UNFIXED_CALL, "无主叫固话")
-          localBillRate:
-            type: string
-            description: 本地话费（单位：厘）
-          otherBillRate:
-            type: string
-            description: 外地话费（单位：厘）
-          callOutIndustry:
-            type: string
-            description: (FINANCE, "金融"),(OTHER, "其他")
-          areaCode:
-            type: string
-            description: 归属地区号
-          province:
-            type: string
-            description: 归属地省
-          city:
-            type: string
-            description: 归属地市
-          deadArea:
-            type: string
-            description: 无法外呼地区
+          data:
+            type: array
+            items:
+              $ref: "#/definitions/Phone"
+  Phone:
+    title: Phone
+    description: Phone
+    type: object
+    properties:
+      tenantPhoneNumberId:
+        type: integer
+        format: int64
+        description: 电话id
+      phoneNumber:
+        type: string
+        description: 电话号码
+      phoneName:
+        type: string
+        description: 电话号码名称
+      phoneType:
+        type: string
+        description: (MOBILE, "手机"),(LANDLINE, "固话"),(UNFIXED_CALL, "无主叫固话")
+      localBillRate:
+        type: string
+        description: 本地话费（单位：厘）
+      otherBillRate:
+        type: string
+        description: 外地话费（单位：厘）
+      callOutIndustry:
+        type: string
+        description: (FINANCE, "金融"),(OTHER, "其他")
+      areaCode:
+        type: string
+        description: 归属地区号
+      province:
+        type: string
+        description: 归属地省
+      city:
+        type: string
+        description: 归属地市
+      deadArea:
+        type: string
+        description: 无法外呼地区
   UpdatePhoneInfoByTenantPhoneNumberIdReq:
     title: UpdatePhoneInfoByTenantPhoneNumberIdReq
     description: ""

@@ -1,7 +1,7 @@
 package aibot
 
 import(
-	"crypto/hmac"
+	// "crypto/hmac"
 	"crypto/sha256"
 	"sort"
 	"bytes"
@@ -34,8 +34,9 @@ func Sign(pairs map[string]string, tenantSign string, needSort bool) string {
 }
 
 func SignArr(kvs KVS, tenantSign string) string {
-	h := hmac.New(sha256.New, []byte(tenantSign))
-	
+	// h := hmac.New(sha256.New)
+	h := sha256.New()
+
 	var buffer bytes.Buffer
 	if len(kvs) > 0 {
 		buffer.WriteString(kvs[0].K)
@@ -49,6 +50,7 @@ func SignArr(kvs KVS, tenantSign string) string {
 		}
 	}
 
+	h.Write([]byte(tenantSign))
 	h.Write([]byte(buffer.String()))
 	signature := hex.EncodeToString(h.Sum(nil))
 	fmt.Printf("params: %s, signature: %s\n", buffer.String(), signature)

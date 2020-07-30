@@ -4,6 +4,7 @@ import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.openapitools.model.APIResponse
 import org.openapitools.model.GetPhoneListRspAllOf
+import org.openapitools.model.Phone
 import javax.validation.constraints.DecimalMax
 import javax.validation.constraints.DecimalMin
 import javax.validation.constraints.Max
@@ -17,17 +18,7 @@ import javax.validation.constraints.Size
  * @param code 响应码
  * @param requestId 请求id
  * @param resultMsg 响应说明
- * @param tenantPhoneNumberId 电话id
- * @param phoneNumber 电话号码
- * @param phoneName 电话号码名称
- * @param phoneType (MOBILE, \"手机\"),(LANDLINE, \"固话\"),(UNFIXED_CALL, \"无主叫固话\")
- * @param localBillRate 本地话费（单位：厘）
- * @param otherBillRate 外地话费（单位：厘）
- * @param callOutIndustry (FINANCE, \"金融\"),(OTHER, \"其他\")
- * @param areaCode 归属地区号
- * @param province 归属地省
- * @param city 归属地市
- * @param deadArea 无法外呼地区
+ * @param data 
  */
 data class GetPhoneListRsp(
 
@@ -37,27 +28,7 @@ data class GetPhoneListRsp(
 
     @field:JsonProperty("resultMsg") val resultMsg: kotlin.String? = null,
 
-    @field:JsonProperty("tenantPhoneNumberId") val tenantPhoneNumberId: kotlin.Long? = null,
-
-    @field:JsonProperty("phoneNumber") val phoneNumber: kotlin.String? = null,
-
-    @field:JsonProperty("phoneName") val phoneName: kotlin.String? = null,
-
-    @field:JsonProperty("phoneType") val phoneType: kotlin.String? = null,
-
-    @field:JsonProperty("localBillRate") val localBillRate: kotlin.String? = null,
-
-    @field:JsonProperty("otherBillRate") val otherBillRate: kotlin.String? = null,
-
-    @field:JsonProperty("callOutIndustry") val callOutIndustry: kotlin.String? = null,
-
-    @field:JsonProperty("areaCode") val areaCode: kotlin.String? = null,
-
-    @field:JsonProperty("province") val province: kotlin.String? = null,
-
-    @field:JsonProperty("city") val city: kotlin.String? = null,
-
-    @field:JsonProperty("deadArea") val deadArea: kotlin.String? = null
+    @field:JsonProperty("data") val data: kotlin.collections.List<Phone>? = null
 ) {
 
 }
