@@ -1,0 +1,246 @@
+swagger: '2.0'
+info:
+  description: 'aibot api'
+  version: 1.0.0
+  title: AIBot open api
+  license:
+    name: Apache-2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+host: openapi.tanyibot.com
+basePath: /apiOpen/v1
+tags:
+  - name: isv
+    description: isv
+  - name: phone
+    description: phone
+schemes:
+  - https
+paths:
+  /isv/genSubAccountIsv:
+    post:
+      tags:
+        - isv
+      summary: 通过此接口可生成子账号的ISV账号
+      description: 通过此接口可生成子账号的ISV账号
+      operationId: genSubAccountIsv
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: ''
+          required: true
+          schema:
+            $ref: '#/definitions/GetSubAccountIsvReq'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/GetSubAccountIsvResp'
+  /phone/getPhoneList:
+    get:
+      tags:
+        - phone
+      summary: 通过接口可以获取所有可用的外呼线路的列表
+      description: 通过接口可以获取所有可用的外呼线路的列表
+      operationId: getPhoneList
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: ''
+          required: true
+          schema:
+            $ref: '#/definitions/GetPhoneListReq'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/GetPhoneListResp'
+  /phone/updatePhoneInfoByTenantPhoneNumberId:
+    post:
+      tags:
+        - phone
+      summary: 通过此接口修改线路的归属地、行业、黑名单，只能修改归属客户自己的线路
+      description: 通过此接口修改线路的归属地、行业、黑名单，只能修改归属客户自己的线路
+      operationId: updatePhoneInfoByTenantPhoneNumberId
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: ''
+          required: true
+          schema:
+            $ref: '#/definitions/UpdatePhoneInfoByTenantPhoneNumberIdReq'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/APIResponse'
+  /phone/updatePhonePriceByTenantPhoneNumberId:
+    post:
+      tags:
+        - phone
+      summary: 修改绑定客户线路的价格
+      description: 修改绑定客户线路的价格
+      operationId: updatePhonePriceByTenantPhoneNumberId
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/APIResponse'
+definitions:
+  GetSubAccountIsvReq:
+    title: GetSubAccountIsvReq
+    description: ''
+    type: object
+    required:
+      - tenantSign
+      - phoneNumber
+    properties:
+      tenantSign:
+        type: string
+      phoneNumber:
+        type: string
+  GetSubAccountIsvResp:
+    title: GetSubAccountIsvResp
+    description: ''
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: 响应码
+      requestId:
+        type: string
+        description: 请求Id
+      resultMsg:
+        type: string
+        description: 响应说明
+      tenantSign:
+        type: string
+        description: 客户签名
+      appKey:
+        type: string
+      appSecret:
+        type: string      
+  GetPhoneListReq:
+    allOf:
+      - $ref: '#/definitions/BaseReq'
+      - type: object
+        description: ''
+  GetPhoneListResp:
+    title: APIResponse
+    description: ''
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: 响应码
+      tenantPhoneNumberId:
+        type: integer
+        format: int64
+        description: 电话id
+      phoneNumber:
+        type: string
+        description: 电话号码
+      phoneName:
+        type: string
+        description: 电话号码名称
+      phoneType:
+        type: string
+        description: (MOBILE, "手机"),(LANDLINE, "固话"),(UNFIXED_CALL, "无主叫固话")
+      localBillRate:
+        type: string
+        description: 本地话费（单位：厘）
+      otherBillRate:
+        type: string
+        description: 外地话费（单位：厘）
+      callOutIndustry:
+        type: string
+        description: (FINANCE, "金融"),(OTHER, "其他")
+      areaCode:
+        type: string
+        description: 归属地区号
+      province:
+        type: string
+        description: 归属地省
+      city:
+        type: string
+        description: 归属地市
+      deadArea:
+        type: string
+        description: 无法外呼地区
+  UpdatePhoneInfoByTenantPhoneNumberIdReq:
+    title: UpdatePhoneInfoByTenantPhoneNumberIdReq
+    description: ''
+    properties:
+      tenantPhoneNumberId:
+        type: int
+        format: int64
+        description: 线路id
+        allowEmptyValue: false
+        example: 1010
+      areaCode:
+        type: string
+        description: 线路归属地
+        example: http://www.baidu.com
+      province:
+        type: string
+        description: 线路归属地省
+        example: 浙江
+      city:
+        type: string
+        description: 线路归属地市
+        example: 杭州
+      callOutIndustry:
+        type: string
+        enum:
+          - FINANCE
+          - OTHER
+        description: (FINANCE, "金融"),(OTHER, "其他")
+      deadArea:
+        type: object
+        description: 线路黑名单地址
+        properties:
+          city:
+            type: string
+          prov:
+            type: string
+  BaseReq:
+    title: BaseReq
+    description: ''
+    properties:
+      appKey:
+        type: string
+      appSecret:
+        type: string
+      tenantSign:
+        type: string
+      version:
+        type: string
+      timestamp:
+        type: string
+      signature:
+        type: string
+  APIResponse:
+    title: APIResponse
+    description: ''
+    properties:
+      code:
+        type: int
+        format: int32
+        description: 响应码
+      requestId:
+        type: string
+        description: 请求id
+      resultMsg:
+        type: string
+        description: 响应说明
