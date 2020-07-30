@@ -1,8 +1,8 @@
 swagger: "2.0"
 info:
-  description: "aibot api"
+  description: "tanyibot api"
   version: 1.0.0
-  title: AIBot open api
+  title: Tanyi Bot open api
   license:
     name: Apache-2.0
     url: "https://www.apache.org/licenses/LICENSE-2.0.html"
