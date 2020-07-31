@@ -69,7 +69,7 @@ paths:
       tags:
         - isv
       summary: 获取isv列表
-      description: 获取isv列表
+      description: 通过此接口获取ISV账号列表
       operationId: getIsvList
       produces:
         - application/json
@@ -143,7 +143,100 @@ paths:
           description: successful operation
           schema:
             $ref: "#/definitions/APIResponse"
+  /csRobot/staffGroupList:
+    get:
+      tags:
+        - csRobot
+      summary: 获取人工坐席列表接口
+      description: 通过此接口可以获取用户所有的有效坐席组列表信息
+      operationId: staffGroupList
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: pageNum
+          type: integer
+          format: int32
+          required: true
+        - in: query
+          name: pageSize
+          type: integer
+          format: int32
+          required: true
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/StaffGroupListRsp"
+  /dialogFlow/getDialogFlowList:
+    get:
+      summary: 获取公司的机器人话术列表接口
+      description: 通过接口可以获取指定公司的所有配置完成的机器人话术
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/DialogFlowList"
 definitions:
+  DialogFlowList:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: "#/definitions/DialogFlow"
+  DialogFlow:
+    type: object
+    properties:
+      dialogFlowId:
+        type: integer
+        format: int32
+        description: 机器人话术id
+      name:
+        type: string
+        description: 机器人话术名称
+      industry:
+        type: string
+        description: 一级行业类型（枚举在枚举说明中）
+      subIndustry:
+        type: string
+        description: 二级行业类型（枚举在枚举说明中）
+      intentLevelTagId:
+        type: integer
+        format: int64
+        description: 意向标签分组id
+      status:
+        type: string
+        description: 话术状态(DRAFT 草稿 PENDING_APPROVAL 等待审核 REJECTED 拒绝 APPROVED 审核通过)
+      createTime:
+        type: string
+        description: 创建时间
+  StaffGroupListRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          number:
+            type: integer
+            format: int32
+          pageSize:
+            type: integer
+            format: int32
+          totalElements:
+            type: integer
+            format: int32
+          pages:
+            type: integer
+            format: int32
+          csStaffGroupId:
+            type: integer
+            format: int64
+          groupName:
+            type: string
   GetTenantRsp:
     title: GetTenantRsp
     allOf:
@@ -248,10 +341,12 @@ definitions:
         type: string
         description: (MOBILE, "手机"),(LANDLINE, "固话"),(UNFIXED_CALL, "无主叫固话")
       localBillRate:
-        type: string
+        type: integer
+        format: int32
         description: 本地话费（单位：厘）
       otherBillRate:
-        type: string
+        type: integer
+        format: int32
         description: 外地话费（单位：厘）
       callOutIndustry:
         type: string
@@ -266,7 +361,13 @@ definitions:
         type: string
         description: 归属地市
       deadArea:
-        type: string
+        type: array
+        items:
+          properties:
+            city:
+              type: string
+            prov:
+              type: string
         description: 无法外呼地区
   UpdatePhoneInfoByTenantPhoneNumberIdReq:
     title: UpdatePhoneInfoByTenantPhoneNumberIdReq

@@ -2,6 +2,7 @@ package org.openapitools.model
 
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty
+import org.openapitools.model.PhoneDeadArea
 import javax.validation.constraints.DecimalMax
 import javax.validation.constraints.DecimalMin
 import javax.validation.constraints.Max
@@ -34,9 +35,9 @@ data class Phone(
 
     @field:JsonProperty("phoneType") val phoneType: kotlin.String? = null,
 
-    @field:JsonProperty("localBillRate") val localBillRate: kotlin.String? = null,
+    @field:JsonProperty("localBillRate") val localBillRate: kotlin.Int? = null,
 
-    @field:JsonProperty("otherBillRate") val otherBillRate: kotlin.String? = null,
+    @field:JsonProperty("otherBillRate") val otherBillRate: kotlin.Int? = null,
 
     @field:JsonProperty("callOutIndustry") val callOutIndustry: kotlin.String? = null,
 
@@ -46,7 +47,7 @@ data class Phone(
 
     @field:JsonProperty("city") val city: kotlin.String? = null,
 
-    @field:JsonProperty("deadArea") val deadArea: kotlin.String? = null
+    @field:JsonProperty("deadArea") val deadArea: kotlin.collections.List<PhoneDeadArea>? = null
 ) {
 
 }
