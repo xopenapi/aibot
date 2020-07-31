@@ -19,6 +19,9 @@ import javax.validation.constraints.Size
  * @param intentLevelTagId 意向标签分组id
  * @param status 话术状态(DRAFT 草稿 PENDING_APPROVAL 等待审核 REJECTED 拒绝 APPROVED 审核通过)
  * @param createTime 创建时间
+ * @param type 
+ * @param description 
+ * @param intentLevelTagName 
  */
 data class DialogFlow(
 
@@ -34,7 +37,13 @@ data class DialogFlow(
 
     @field:JsonProperty("status") val status: kotlin.String? = null,
 
-    @field:JsonProperty("createTime") val createTime: kotlin.String? = null
+    @field:JsonProperty("createTime") val createTime: kotlin.String? = null,
+
+    @field:JsonProperty("type") val type: kotlin.String? = null,
+
+    @field:JsonProperty("description") val description: kotlin.String? = null,
+
+    @field:JsonProperty("intentLevelTagName") val intentLevelTagName: kotlin.String? = null
 ) {
 
 }

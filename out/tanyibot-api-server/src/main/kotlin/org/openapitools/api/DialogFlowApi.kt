@@ -1,6 +1,13 @@
 package org.openapitools.api
 
+import org.openapitools.model.APIResponse
+import org.openapitools.model.CopyDialogFlowReq
+import org.openapitools.model.DialogContentInfo
+import org.openapitools.model.DialogFlowCallJobRelatedInfo
 import org.openapitools.model.DialogFlowList
+import org.openapitools.model.GetTotalDialogFlowListReq
+import org.openapitools.model.InlineResponse200
+import org.openapitools.model.TotalDialogFlowListRsp
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -36,10 +43,74 @@ class DialogFlowApiController() {
 
 
     @RequestMapping(
+        value = ["/dialogFlow/batchUpload"],
+        produces = ["application/json"], 
+        consumes = ["multipart/form-data"],
+        method = [RequestMethod.POST])
+    fun dialogFlowBatchUploadPost( @RequestParam(value="dialogFlowId", required=true) dialogFlowId: kotlin.Long 
+, @Valid @RequestPart("file") file: org.springframework.core.io.Resource
+): ResponseEntity<APIResponse> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
+        value = ["/dialogFlow/copyDialogFlow"],
+        produces = ["application/json"], 
+        consumes = ["application/json"],
+        method = [RequestMethod.POST])
+    fun dialogFlowCopyDialogFlowPost( @Valid @RequestBody body: kotlin.Any?
+): ResponseEntity<CopyDialogFlowReq> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
+        value = ["/dialogFlow/getDialogFlowCallJobRelatedInfo"],
+        produces = ["application/json"], 
+        method = [RequestMethod.GET])
+    fun dialogFlowGetDialogFlowCallJobRelatedInfoGet(@NotNull  @RequestParam(value = "dialogFlowId", required = true) dialogFlowId: kotlin.Long
+): ResponseEntity<DialogFlowCallJobRelatedInfo> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
         value = ["/dialogFlow/getDialogFlowList"],
         produces = ["application/json"], 
         method = [RequestMethod.GET])
     fun dialogFlowGetDialogFlowListGet(): ResponseEntity<DialogFlowList> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
+        value = ["/dialogFlow/getTotalDialogFlowList"],
+        produces = ["application/json"], 
+        consumes = ["application/json"],
+        method = [RequestMethod.POST])
+    fun dialogFlowGetTotalDialogFlowListPost( @Valid @RequestBody body: GetTotalDialogFlowListReq?
+): ResponseEntity<TotalDialogFlowListRsp> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
+        value = ["/dialogFlow/exportDialogFlowWordDoc"],
+        produces = ["application/json"], 
+        method = [RequestMethod.GET])
+    fun exportDialogFlowWordDoc(@NotNull  @RequestParam(value = "dialogFlowId", required = true) dialogFlowId: kotlin.Long
+): ResponseEntity<InlineResponse200> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
+        value = ["/dialogFlow/getDialogContentInfo"],
+        produces = ["application/json"], 
+        method = [RequestMethod.GET])
+    fun getDialogContentInfo(@NotNull  @RequestParam(value = "dialogFlowId", required = true) dialogFlowId: kotlin.Long
+): ResponseEntity<DialogContentInfo> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 }

@@ -12,20 +12,14 @@ import javax.validation.constraints.Size
 
 /**
  * 
- * @param code 响应码
- * @param requestId 请求id
- * @param resultMsg 响应说明
- * @param errorStackTrace 
+ * @param code 
+ * @param name 
  */
-data class APIResponse(
+data class IntentLevelTagDetails(
 
     @field:JsonProperty("code") val code: kotlin.Int? = null,
 
-    @field:JsonProperty("requestId") val requestId: kotlin.String? = null,
-
-    @field:JsonProperty("resultMsg") val resultMsg: kotlin.String? = null,
-
-    @field:JsonProperty("errorStackTrace") val errorStackTrace: kotlin.String? = null
+    @field:JsonProperty("name") val name: kotlin.String? = null
 ) {
 
 }

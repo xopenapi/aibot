@@ -17,6 +17,7 @@ import javax.validation.constraints.Size
  * @param code 响应码
  * @param requestId 请求id
  * @param resultMsg 响应说明
+ * @param errorStackTrace 
  * @param tenantName 
  * @param tenantId 
  */
@@ -27,6 +28,8 @@ data class GetTenantRsp(
     @field:JsonProperty("requestId") val requestId: kotlin.String? = null,
 
     @field:JsonProperty("resultMsg") val resultMsg: kotlin.String? = null,
+
+    @field:JsonProperty("errorStackTrace") val errorStackTrace: kotlin.String? = null,
 
     @field:JsonProperty("tenantName") val tenantName: kotlin.String? = null,
 

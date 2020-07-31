@@ -12,20 +12,20 @@ import javax.validation.constraints.Size
 
 /**
  * 
- * @param code 响应码
- * @param requestId 请求id
- * @param resultMsg 响应说明
- * @param errorStackTrace 
+ * @param status 
+ * @param isLineAvailable 
+ * @param hint 
+ * @param occupiedJobList 
  */
-data class APIResponse(
+data class LineStatus(
 
-    @field:JsonProperty("code") val code: kotlin.Int? = null,
+    @field:JsonProperty("status") val status: kotlin.String? = null,
 
-    @field:JsonProperty("requestId") val requestId: kotlin.String? = null,
+    @field:JsonProperty("isLineAvailable") val isLineAvailable: kotlin.Boolean? = null,
 
-    @field:JsonProperty("resultMsg") val resultMsg: kotlin.String? = null,
+    @field:JsonProperty("hint") val hint: kotlin.String? = null,
 
-    @field:JsonProperty("errorStackTrace") val errorStackTrace: kotlin.String? = null
+    @field:JsonProperty("occupiedJobList") val occupiedJobList: kotlin.String? = null
 ) {
 
 }

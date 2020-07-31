@@ -3,8 +3,8 @@ package org.openapitools.model
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.openapitools.model.APIResponse
-import org.openapitools.model.GetIsvListRspAllOf
-import org.openapitools.model.GetIsvListRspAllOfData
+import org.openapitools.model.CallIntercept
+import org.openapitools.model.InterceptListRspAllOf
 import javax.validation.constraints.DecimalMax
 import javax.validation.constraints.DecimalMin
 import javax.validation.constraints.Max
@@ -21,7 +21,7 @@ import javax.validation.constraints.Size
  * @param errorStackTrace 
  * @param data 
  */
-data class GetIsvListRsp(
+data class InterceptListRsp(
 
     @field:JsonProperty("code") val code: kotlin.Int? = null,
 
@@ -31,7 +31,7 @@ data class GetIsvListRsp(
 
     @field:JsonProperty("errorStackTrace") val errorStackTrace: kotlin.String? = null,
 
-    @field:JsonProperty("data") val data: kotlin.collections.List<GetIsvListRspAllOfData>? = null
+    @field:JsonProperty("data") val data: kotlin.collections.List<CallIntercept>? = null
 ) {
 
 }

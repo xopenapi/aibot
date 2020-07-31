@@ -14,6 +14,7 @@ import javax.validation.constraints.Size
 
 /**
  * 
+ * @param tenantPhoneNumberId 用户线路ID（代表绑给用户的虚拟线路）
  * @param areaCode 线路归属地
  * @param province 线路归属地省
  * @param city 线路归属地市
@@ -21,6 +22,8 @@ import javax.validation.constraints.Size
  * @param deadArea 
  */
 data class UpdatePhoneInfoByTenantPhoneNumberIdReq(
+
+    @field:JsonProperty("tenantPhoneNumberId") val tenantPhoneNumberId: kotlin.Long? = null,
 
     @field:JsonProperty("areaCode") val areaCode: kotlin.String? = null,
 

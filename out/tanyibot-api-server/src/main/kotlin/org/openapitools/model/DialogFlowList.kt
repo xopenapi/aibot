@@ -18,6 +18,7 @@ import javax.validation.constraints.Size
  * @param code 响应码
  * @param requestId 请求id
  * @param resultMsg 响应说明
+ * @param errorStackTrace 
  * @param data 
  */
 data class DialogFlowList(
@@ -27,6 +28,8 @@ data class DialogFlowList(
     @field:JsonProperty("requestId") val requestId: kotlin.String? = null,
 
     @field:JsonProperty("resultMsg") val resultMsg: kotlin.String? = null,
+
+    @field:JsonProperty("errorStackTrace") val errorStackTrace: kotlin.String? = null,
 
     @field:JsonProperty("data") val data: kotlin.collections.List<DialogFlow>? = null
 ) {

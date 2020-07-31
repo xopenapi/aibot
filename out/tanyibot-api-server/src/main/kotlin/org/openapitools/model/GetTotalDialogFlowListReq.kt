@@ -12,20 +12,17 @@ import javax.validation.constraints.Size
 
 /**
  * 
- * @param code 响应码
- * @param requestId 请求id
- * @param resultMsg 响应说明
- * @param errorStackTrace 
+ * @param name 话术名称 模糊查询
+ * @param pageNum 页码 默认为1
+ * @param pageSize 每页条数 默认为20
  */
-data class APIResponse(
+data class GetTotalDialogFlowListReq(
 
-    @field:JsonProperty("code") val code: kotlin.Int? = null,
+    @field:JsonProperty("name") val name: kotlin.String? = null,
 
-    @field:JsonProperty("requestId") val requestId: kotlin.String? = null,
+    @field:JsonProperty("pageNum") val pageNum: kotlin.Int? = null,
 
-    @field:JsonProperty("resultMsg") val resultMsg: kotlin.String? = null,
-
-    @field:JsonProperty("errorStackTrace") val errorStackTrace: kotlin.String? = null
+    @field:JsonProperty("pageSize") val pageSize: kotlin.Int? = null
 ) {
 
 }

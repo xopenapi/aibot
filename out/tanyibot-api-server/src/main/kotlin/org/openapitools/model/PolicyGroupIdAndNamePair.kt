@@ -12,20 +12,17 @@ import javax.validation.constraints.Size
 
 /**
  * 
- * @param code 响应码
- * @param requestId 请求id
- * @param resultMsg 响应说明
- * @param errorStackTrace 
+ * @param callPolicyGroupId 外呼策略组id
+ * @param tenantId 公司Id
+ * @param name 外呼策略组名称
  */
-data class APIResponse(
+data class PolicyGroupIdAndNamePair(
 
-    @field:JsonProperty("code") val code: kotlin.Int? = null,
+    @field:JsonProperty("callPolicyGroupId") val callPolicyGroupId: kotlin.String? = null,
 
-    @field:JsonProperty("requestId") val requestId: kotlin.String? = null,
+    @field:JsonProperty("tenantId") val tenantId: kotlin.Long? = null,
 
-    @field:JsonProperty("resultMsg") val resultMsg: kotlin.String? = null,
-
-    @field:JsonProperty("errorStackTrace") val errorStackTrace: kotlin.String? = null
+    @field:JsonProperty("name") val name: kotlin.String? = null
 ) {
 
 }
