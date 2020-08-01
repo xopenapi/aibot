@@ -170,8 +170,11 @@ paths:
             $ref: "#/definitions/StaffGroupListRsp"
   /dialogFlow/getDialogFlowList:
     get:
+      tags:
+        - dialogFlow
       summary: 获取公司的机器人话术列表接口
       description: 通过接口可以获取指定公司的所有配置完成的机器人话术
+      operationId: getDialogFlowList
       produces:
         - application/json
       responses:
@@ -181,6 +184,8 @@ paths:
             $ref: "#/definitions/DialogFlowList"
   /dialogFlow/getDialogFlowCallJobRelatedInfo:
     get:
+      tags:
+        - dialogFlow
       summary: 获取话术中存在人工介入和转人工等标识
       description: 通过接口可以获取指定话术的标识
       produces:
@@ -198,6 +203,8 @@ paths:
             $ref: "#/definitions/DialogFlowCallJobRelatedInfo"
   /dialogFlow/exportDialogFlowWordDoc:
     get:
+      tags:
+        - dialogFlow
       summary: 获取话术主流程word文档
       description: 通过接口可以获取指定话术的主流程文档
       operationId: exportDialogFlowWordDoc
@@ -222,6 +229,8 @@ paths:
                     description: 导出文档的下载链接
   /dialogFlow/getDialogContentInfo:
     get:
+      tags:
+        - dialogFlow
       summary: 获取话术中所有需要录音的文本和录音文件
       description: 通过接口可以获取指定话术所有需要录音的文本和录音文件
       operationId: getDialogContentInfo
@@ -241,6 +250,8 @@ paths:
             $ref: "#/definitions/DialogContentInfo"
   /dialogFlow/batchUpload:
     post:
+      tags:
+        - dialogFlow
       summary: 上传话术录音
       description: 通过接口可以上传话术中指定文本的录音
       consumes:
@@ -266,6 +277,8 @@ paths:
             $ref: "#/definitions/APIResponse"
   /dialogFlow/copyDialogFlow:
     post:
+      tags:
+        - dialogFlow
       summary: 话术复制
       description: 通过接口可以复制指定话术
       consumes:
@@ -276,14 +289,16 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: ""
+            $ref: "#/definitions/CopyDialogFlowReq"
       responses:
         "200":
           description: successful operation
           schema:
-            $ref: "#/definitions/CopyDialogFlowReq"
+            $ref: "#/definitions/CopyDialogFlowRsp"
   /dialogFlow/getTotalDialogFlowList:
     post:
+      tags:
+        - dialogFlow
       summary: 话术列表
       description: 通过接口可以获取所有话术列表
       consumes:
@@ -335,6 +350,8 @@ paths:
             $ref: "#/definitions/GetIntentLevelTagRsp"
   /callIntercept/list:
     get:
+      tags:
+        - callIntercept
       summary: 获取拦截组列表接口
       description: 通过此接口可以获取所有拦截组
       produces:
@@ -346,6 +363,8 @@ paths:
             $ref: "#/definitions/InterceptListRsp"
   /policyGroup/getIdAndNamePairList:
     get:
+      tags:
+        - policyGroup
       summary: 获取外呼策略组选择接口
       description: 通过此接口可以获取外呼策略组id和名称对应的键值对列表
       produces:
@@ -357,6 +376,8 @@ paths:
             $ref: "#/definitions/GetIdAndNamePairListRsp"
   /policyGroup/list:
     get:
+      tags:
+        - policyGroup
       summary: 获取外呼策略组列表接口
       description: 通过此接口可以获取用户所有的外呼策略组信息
       produces:
@@ -404,9 +425,15 @@ paths:
         - job
       summary: 通过此接口可以创建新的任务
       description: 创建任务,支持使用多个无主叫固话,只需设置总并发数,由系统自动分配每个线路的并发。
+      operationId: create
+      consumes:
+        - application/json
+      produces:
+        - application/json
       parameters:
         - in: body
           name: body
+          required: true
           schema:
             $ref: "#/definitions/Job"
       responses:
@@ -416,6 +443,7 @@ paths:
             $ref: "#/definitions/JobCreateRsp"
   /job/start:
     post:
+      operationId: start
       tags:
         - job
       consumes:
@@ -425,8 +453,11 @@ paths:
       parameters:
         - in: body
           name: body
+          required: true
           schema:
             type: object
+            required:
+              - robotCallJobId
             properties:
               robotCallJobId:
                 type: integer
@@ -434,10 +465,10 @@ paths:
                 description: 任务Id
                 example: 1
       responses:
-        '200':
+        "200":
           description: successful operation
           schema:
-            $ref: ""#/definitions/APIResponse"
+            $ref: "#/definitions/APIResponse"
   /job/pause:
     post:
       tags:
@@ -481,9 +512,10 @@ paths:
         "200":
           description: successful operation
           schema:
-            $ref: ""#/definitions/APIResponse"
+            $ref: "#/definitions/APIResponse"
   /job/importCustomer:
     post:
+      operationId: importCustomer
       tags:
         - job
       consumes:
@@ -495,12 +527,12 @@ paths:
           name: body
           required: true
           schema:
-            $ref: ""#/definitions/ImportCustomerReq"
+            $ref: "#/definitions/ImportCustomerReq"
       responses:
         "200":
           description: successful operation
           schema:
-            $ref: ""#/definitions/APIResponse"
+            $ref: "#/definitions/APIResponse"
   /job/updateAiCount:
     post:
       tags:
@@ -527,7 +559,7 @@ paths:
         "200":
           description: successful operation
           schema:
-            $ref: ""#/definitions/APIResponse"
+            $ref: "#/definitions/APIResponse"
   /job/checkAll:
     post:
       tags:
@@ -584,7 +616,7 @@ paths:
         "200":
           description: successful operation
           schema:
-            $ref: ""#/definitions/CheckAllRsp"
+            $ref: "#/definitions/CheckAllRsp"
   /job/executeJobs:
     post:
       tags:
@@ -598,7 +630,7 @@ paths:
           name: body
           required: true
           schema:
-            $ref: ""#/definitions/ExecuteJobsReq"
+            $ref: "#/definitions/ExecuteJobsReq"
       responses:
         "200":
           description: successful operation
@@ -724,16 +756,16 @@ paths:
         "200":
           description: successful operation
           schema:
-            $ref: ""#/definitions/GetJobDetailRsp"
+            $ref: "#/definitions/GetJobDetailRsp"
 definitions:
   GetJobDetailRsp:
     allOf:
       - $ref: "#/definitions/APIResponse"
       - type: object
         properties:
-          data: 
+          data:
             $ref: "#/definitions/Job"
-    
+
   GetJobsRsp:
     allOf:
       - $ref: "#/definitions/APIResponse"
@@ -845,7 +877,7 @@ definitions:
           - SYSTEM_ERROR
           - CALL_LOSS
           - TRANSFER_ARTIFICIAL
-        description: ANSWERED(0, "已接听", null), NO_ANSWER(1, "无应答", "呼叫号码未接听"), BUSY(2, "忙线中", "呼叫号码占线"), POWER_OFF(3, "关机", "呼叫号码关机"), OUT_OF_SERVICE(4, "停机", "呼叫号码停机"), REFUSED(5, "拒接", "呼叫号码拒接"), VACANT_NUMBER(6, "空号", "呼叫的号码是空号"), CAN_NOT_CONNECT(7, "无法接通", "呼叫的号码无法接通"), FROM_PHONE_ERROR(8, "主叫停机", "主叫号码不可用"), SYSTEM_ERROR(9, "系统错误", "外呼失败，系统错误"), CALL_LOSS(10,"多并发呼损","等待服务中用户挂断"), TRANSFER_ARTIFICIAL(11,"转人工呼损","等待转人工服务中用户挂断");	["ANSWERED", 
+        description: ANSWERED(0, "已接听", null), NO_ANSWER(1, "无应答", "呼叫号码未接听"), BUSY(2, "忙线中", "呼叫号码占线"), POWER_OFF(3, "关机", "呼叫号码关机"), OUT_OF_SERVICE(4, "停机", "呼叫号码停机"), REFUSED(5, "拒接", "呼叫号码拒接"), VACANT_NUMBER(6, "空号", "呼叫的号码是空号"), CAN_NOT_CONNECT(7, "无法接通", "呼叫的号码无法接通"), FROM_PHONE_ERROR(8, "主叫停机", "主叫号码不可用"), SYSTEM_ERROR(9, "系统错误", "外呼失败，系统错误"), CALL_LOSS(10,"多并发呼损","等待服务中用户挂断"), TRANSFER_ARTIFICIAL(11,"转人工呼损","等待转人工服务中用户挂断");	["ANSWERED",
         items:
           type: string
       intentLevels:
@@ -872,11 +904,11 @@ definitions:
       earliestCreationTime:
         type: string
         description: 最早创建时间，日期标准格式，请不要包含时间。可以为空
-        example: '2018-07-25'
+        example: "2018-07-25"
       latestCreationTime:
         type: string
         description: 最晚创建时间，日期标准格式，请不要包含时间。可以为空
-        example: '2018-07-30'
+        example: "2018-07-30"
   ExecuteJobsRsp:
     allOf:
       - $ref: "#/definitions/APIResponse"
@@ -1051,6 +1083,13 @@ definitions:
         description: 是否已呼列表去重 默认false
         example: false
         default: false
+      customerPersons:
+        type: array
+        items:
+          $ref: "#/definitions/CustomerPerson"
+  CustomerPerson:
+    type: object
+    properties:
       name:
         type: string
         description: 客户名称
@@ -1083,10 +1122,14 @@ definitions:
       - $ref: "#/definitions/APIResponse"
       - type: object
         properties:
-          robotCallJobId:
-            type: integer
-            format: int64
+          data:
+            type: object
+            properties:
+              robotCallJobId:
+                type: integer
+                format: int64
   Job:
+    description: Job
     type: object
     properties:
       concurrencyQuota:
@@ -1098,17 +1141,22 @@ definitions:
         description: 通过获取外呼线路接口获取 tenant_phone_number_id,当类型是手机号的时候他的size代表机器人的个数，当类型非手机号的时候他的size只能是1；如果外呼方式选择的是外呼策略组，则里面内容为外呼策略组的id（size只能为1）
         items:
           type: integer
-          format: int32
+          format: int64
       transferPhoneNumber:
         type: array
         items:
           type: string
         description: 转人工号码,触发转人工时轮训号码列表
       robotCallJob:
-        $ref: ""#/definitions/RobotCallJob"
+        $ref: "#/definitions/RobotCallJob"
   RobotCallJob:
     type: object
     properties:
+      dialogFlowId:
+        type: integer
+        format: int32
+      isPrior:
+        type: boolean
       robotCallJobId:
         type: integer
         format: int64
@@ -1148,7 +1196,7 @@ definitions:
           - LANDLINE
           - UNFIXED_CALL
           - CALL_POLICY_GROUP
-        description: 号码类型 (MOBILE, "手机号码"),(LANDLINE, "固话"),(UNFIXED_CALL, "无主叫"), (CALL_POLICY_GROUP, "外呼策略组")      
+        description: 号码类型 (MOBILE, "手机号码"),(LANDLINE, "固话"),(UNFIXED_CALL, "无主叫"), (CALL_POLICY_GROUP, "外呼策略组")
       robotCount:
         type: integer
         format: int32
@@ -1748,10 +1796,10 @@ definitions:
         type: string
         description: 机器人话术名称
       industry:
-        type: string
+        $ref: "#/definitions/Industry"
         description: 一级行业类型（枚举在枚举说明中）
       subIndustry:
-        type: string
+        $ref: "#/definitions/Industry"
         description: 二级行业类型（枚举在枚举说明中）
       intentLevelTagId:
         type: integer

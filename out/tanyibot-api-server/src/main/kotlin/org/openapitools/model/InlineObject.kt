@@ -16,7 +16,8 @@ import javax.validation.constraints.Size
  */
 data class InlineObject(
 
-    @field:JsonProperty("robotCallJobId") val robotCallJobId: kotlin.Long? = null
+    @get:NotNull 
+    @field:JsonProperty("robotCallJobId") val robotCallJobId: kotlin.Long
 ) {
 
 }

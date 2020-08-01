@@ -2,6 +2,7 @@ package org.openapitools.api
 
 import org.openapitools.model.APIResponse
 import org.openapitools.model.CopyDialogFlowReq
+import org.openapitools.model.CopyDialogFlowRsp
 import org.openapitools.model.DialogContentInfo
 import org.openapitools.model.DialogFlowCallJobRelatedInfo
 import org.openapitools.model.DialogFlowList
@@ -59,8 +60,8 @@ class DialogFlowApiController() {
         produces = ["application/json"], 
         consumes = ["application/json"],
         method = [RequestMethod.POST])
-    fun dialogFlowCopyDialogFlowPost( @Valid @RequestBody body: kotlin.Any?
-): ResponseEntity<CopyDialogFlowReq> {
+    fun dialogFlowCopyDialogFlowPost( @Valid @RequestBody body: CopyDialogFlowReq?
+): ResponseEntity<CopyDialogFlowRsp> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
@@ -71,15 +72,6 @@ class DialogFlowApiController() {
         method = [RequestMethod.GET])
     fun dialogFlowGetDialogFlowCallJobRelatedInfoGet(@NotNull  @RequestParam(value = "dialogFlowId", required = true) dialogFlowId: kotlin.Long
 ): ResponseEntity<DialogFlowCallJobRelatedInfo> {
-        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
-    }
-
-
-    @RequestMapping(
-        value = ["/dialogFlow/getDialogFlowList"],
-        produces = ["application/json"], 
-        method = [RequestMethod.GET])
-    fun dialogFlowGetDialogFlowListGet(): ResponseEntity<DialogFlowList> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 
@@ -111,6 +103,15 @@ class DialogFlowApiController() {
         method = [RequestMethod.GET])
     fun getDialogContentInfo(@NotNull  @RequestParam(value = "dialogFlowId", required = true) dialogFlowId: kotlin.Long
 ): ResponseEntity<DialogContentInfo> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
+        value = ["/dialogFlow/getDialogFlowList"],
+        produces = ["application/json"], 
+        method = [RequestMethod.GET])
+    fun getDialogFlowList(): ResponseEntity<DialogFlowList> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 }

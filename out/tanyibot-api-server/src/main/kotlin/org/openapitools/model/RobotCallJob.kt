@@ -15,6 +15,8 @@ import javax.validation.constraints.Size
 
 /**
  * 
+ * @param dialogFlowId 
+ * @param isPrior 
  * @param robotCallJobId 任务id
  * @param dailyEndTime 
  * @param dailyStartTime 
@@ -37,6 +39,10 @@ import javax.validation.constraints.Size
  * @param tenantCallInterceptId 拦截组id
  */
 data class RobotCallJob(
+
+    @field:JsonProperty("dialogFlowId") val dialogFlowId: kotlin.Int? = null,
+
+    @field:JsonProperty("isPrior") val isPrior: kotlin.Boolean? = null,
 
     @field:JsonProperty("robotCallJobId") val robotCallJobId: kotlin.Long? = null,
 

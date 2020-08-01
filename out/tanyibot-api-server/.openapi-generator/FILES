@@ -24,6 +24,7 @@ src/main/kotlin/org/openapitools/model/CopyDialogFlowReq.kt
 src/main/kotlin/org/openapitools/model/CopyDialogFlowRsp.kt
 src/main/kotlin/org/openapitools/model/CopyDialogFlowRspAllOf.kt
 src/main/kotlin/org/openapitools/model/CreatePolicyGroupReq.kt
+src/main/kotlin/org/openapitools/model/CustomerPerson.kt
 src/main/kotlin/org/openapitools/model/DialogContentInfo.kt
 src/main/kotlin/org/openapitools/model/DialogContentInfoAllOf.kt
 src/main/kotlin/org/openapitools/model/DialogFlow.kt
