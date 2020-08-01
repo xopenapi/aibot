@@ -1,7 +1,19 @@
 package org.openapitools.api
 
-import org.openapitools.model.CreateJobReq
+import org.openapitools.model.APIResponse
+import org.openapitools.model.ExecuteJobsRsp
+import org.openapitools.model.GetJobStatsInfoListRsp
+import org.openapitools.model.GetJobsRsp
+import org.openapitools.model.InlineObject
+import org.openapitools.model.InlineObject1
+import org.openapitools.model.InlineObject2
+import org.openapitools.model.InlineObject3
+import org.openapitools.model.InlineObject4
+import org.openapitools.model.InlineObject5
+import org.openapitools.model.Job
 import org.openapitools.model.JobCreateRsp
+import org.openapitools.model.JobUpdateRsp
+import org.openapitools.model.ReAddCustomerToJobReq
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -37,11 +49,143 @@ class JobApiController() {
 
 
     @RequestMapping(
+        value = ["/job/checkAll"],
+        produces = ["application/json"], 
+        consumes = ["application/json"],
+        method = [RequestMethod.POST])
+    fun jobCheckAllPost( @Valid @RequestBody body: InlineObject4
+): ResponseEntity<kotlin.Any> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
         value = ["/job/create"],
         produces = ["*/*"], 
         method = [RequestMethod.POST])
-    fun jobCreatePost( @Valid @RequestBody body: CreateJobReq?
+    fun jobCreatePost( @Valid @RequestBody body: Job?
 ): ResponseEntity<JobCreateRsp> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
+        value = ["/job/delete"],
+        produces = ["application/json"], 
+        consumes = ["application/json"],
+        method = [RequestMethod.POST])
+    fun jobDeletePost( @Valid @RequestBody body: InlineObject2?
+): ResponseEntity<kotlin.Any> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
+        value = ["/job/executeJobs"],
+        produces = ["application/json"], 
+        consumes = ["application/json"],
+        method = [RequestMethod.POST])
+    fun jobExecuteJobsPost( @Valid @RequestBody body: kotlin.Any
+): ResponseEntity<ExecuteJobsRsp> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
+        value = ["/job/getJobDetail"],
+        produces = ["application/json"], 
+        method = [RequestMethod.GET])
+    fun jobGetJobDetailGet(@NotNull  @RequestParam(value = "robotCallJobId", required = true) robotCallJobId: kotlin.Long
+): ResponseEntity<kotlin.Any> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
+        value = ["/job/getJobStatsInfoList"],
+        produces = ["application/json"], 
+        consumes = ["application/json"],
+        method = [RequestMethod.POST])
+    fun jobGetJobStatsInfoListPost( @Valid @RequestBody body: InlineObject5
+): ResponseEntity<GetJobStatsInfoListRsp> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
+        value = ["/job/getJobs"],
+        produces = ["application/json"], 
+        method = [RequestMethod.GET])
+    fun jobGetJobsGet( @RequestParam(value = "name", required = false) name: kotlin.String?
+, @RequestParam(value = "status", required = false) status: kotlin.String?
+, @RequestParam(value = "pageNum", required = false) pageNum: kotlin.Int?
+, @RequestParam(value = "pageSize", required = false) pageSize: kotlin.Int?
+): ResponseEntity<GetJobsRsp> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
+        value = ["/job/importCustomer"],
+        produces = ["application/json"], 
+        consumes = ["application/json"],
+        method = [RequestMethod.POST])
+    fun jobImportCustomerPost( @Valid @RequestBody body: kotlin.Any
+): ResponseEntity<kotlin.Any> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
+        value = ["/job/modify"],
+        produces = ["*/*"], 
+        method = [RequestMethod.PATCH])
+    fun jobModifyPatch( @Valid @RequestBody body: Job?
+): ResponseEntity<JobUpdateRsp> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
+        value = ["/job/pause"],
+        produces = ["application/json"], 
+        consumes = ["application/json"],
+        method = [RequestMethod.POST])
+    fun jobPausePost( @Valid @RequestBody body: InlineObject1?
+): ResponseEntity<APIResponse> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
+        value = ["/job/reAddCustomerToJob"],
+        produces = ["application/json"], 
+        consumes = ["application/json"],
+        method = [RequestMethod.POST])
+    fun jobReAddCustomerToJobPost( @Valid @RequestBody body: ReAddCustomerToJobReq
+): ResponseEntity<APIResponse> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
+        value = ["/job/start"],
+        produces = ["application/json"], 
+        consumes = ["application/json"],
+        method = [RequestMethod.POST])
+    fun jobStartPost( @Valid @RequestBody body: InlineObject?
+): ResponseEntity<kotlin.Any> {
+        return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+
+    @RequestMapping(
+        value = ["/job/updateAiCount"],
+        produces = ["application/json"], 
+        consumes = ["application/json"],
+        method = [RequestMethod.POST])
+    fun jobUpdateAiCountPost( @Valid @RequestBody body: InlineObject3
+): ResponseEntity<kotlin.Any> {
         return ResponseEntity(HttpStatus.NOT_IMPLEMENTED)
     }
 }

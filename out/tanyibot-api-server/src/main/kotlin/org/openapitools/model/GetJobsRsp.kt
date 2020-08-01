@@ -3,7 +3,8 @@ package org.openapitools.model
 import java.util.Objects
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.openapitools.model.APIResponse
-import org.openapitools.model.JobUpdateRspAllOfData
+import org.openapitools.model.GetJobsRspAllOf
+import org.openapitools.model.JobsPage
 import javax.validation.constraints.DecimalMax
 import javax.validation.constraints.DecimalMin
 import javax.validation.constraints.Max
@@ -18,9 +19,9 @@ import javax.validation.constraints.Size
  * @param requestId 请求id
  * @param resultMsg 响应说明
  * @param errorStackTrace 
- * @param robotCallJobId 
+ * @param data 
  */
-data class JobCreateRsp(
+data class GetJobsRsp(
 
     @field:JsonProperty("code") val code: kotlin.Int? = null,
 
@@ -30,7 +31,7 @@ data class JobCreateRsp(
 
     @field:JsonProperty("errorStackTrace") val errorStackTrace: kotlin.String? = null,
 
-    @field:JsonProperty("robotCallJobId") val robotCallJobId: kotlin.Long? = null
+    @field:JsonProperty("data") val data: JobsPage? = null
 ) {
 
 }

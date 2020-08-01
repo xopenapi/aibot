@@ -408,13 +408,676 @@ paths:
         - in: body
           name: body
           schema:
-            $ref: "#/definitions/CreateJobReq"
+            $ref: "#/definitions/Job"
       responses:
         "200":
           description: successful operation
           schema:
             $ref: "#/definitions/JobCreateRsp"
+  /job/start:
+    post:
+      tags:
+        - job
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              robotCallJobId:
+                type: integer
+                format: int64
+                description: 任务Id
+                example: 1
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: ""#/definitions/APIResponse"
+  /job/pause:
+    post:
+      tags:
+        - job
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            properties:
+              robotCallJobId:
+                type: integer
+                format: int64
+                description: 任务Id
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/APIResponse"
+  /job/delete:
+    post:
+      tags:
+        - job
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            properties:
+              robotCallJobId:
+                type: integer
+                format: int64
+                description: 删除任务
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: ""#/definitions/APIResponse"
+  /job/importCustomer:
+    post:
+      tags:
+        - job
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: ""#/definitions/ImportCustomerReq"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: ""#/definitions/APIResponse"
+  /job/updateAiCount:
+    post:
+      tags:
+        - job
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            properties:
+              robotCallJobId:
+                type: integer
+                format: int64
+                description: 任务Id
+              robotCount:
+                type: integer
+                format: int32
+                description: 坐席数量
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: ""#/definitions/APIResponse"
+  /job/checkAll:
+    post:
+      tags:
+        - job
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            required:
+              - operation
+            properties:
+              operation:
+                type: string
+                enum:
+                  - PAUSE
+                  - START
+                description: 操作类型，必填 PAUSE:暂停 START:开始
+              robotCallJobIdSet:
+                type: array
+                items:
+                  type: string
+                description: 任务id集合
+              statusSet:
+                type: string
+                enum:
+                  - NOT_STARTED
+                  - IN_PROCESS
+                  - COMPLETED
+                  - RUNNABLE
+                  - USER_PAUSE
+                  - SYSTEM_SUSPENDED
+                  - TERMINATE
+                  - IN_QUEUE
+                  - SYSTEM_HANG_UP
+                  - WAITING_FOR_REDIAL
+                  - ACCOUNT_DISABLE
+                  - MAINTAIN
+                description: 任务状态，NOT_STARTED(0, "未开始"),IN_PROCESS(1, "进行中")，COMPLETED(2, "已完成"),RUNNABLE(3, "可运行"),USER_PAUSE(4, "用户暂停"),SYSTEM_SUSPENDED(5, "系统暂停")，TERMINATE(6, "已终止"),IN_QUEUE(7, "排队中"),SYSTEM_HANG_UP(10, "系统挂起"),WAITING_FOR_REDIAL(11, "等待重呼"),ACCOUNT_DISABLE(12, "账户禁用"),MAINTAIN(13, "系统维护");
+              name:
+                type: string
+                description: 任务名称
+              beginCreateDate:
+                type: string
+                description: 开始任务创建日期
+              endCreateDate:
+                type: string
+                description: 结束任务创建日期
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: ""#/definitions/CheckAllRsp"
+  /job/executeJobs:
+    post:
+      tags:
+        - job
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: ""#/definitions/ExecuteJobsReq"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ExecuteJobsRsp"
+  /job/modify:
+    patch:
+      tags:
+        - job
+      summary: 修改任务接口
+      description: 通过此接口可以修改任务
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: "#/definitions/Job"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/JobUpdateRsp"
+  /job/reAddCustomerToJob:
+    post:
+      tags:
+        - job
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/ReAddCustomerToJobReq"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/APIResponse"
+  /job/getJobStatsInfoList:
+    post:
+      tags:
+        - job
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            properties:
+              robotCallJobId:
+                type: array
+                items:
+                  type: string
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/GetJobStatsInfoListRsp"
+  /job/getJobs:
+    get:
+      summary: 获取任务列表接口
+      description: 通过此接口可以获取指定公司的任务列表
+      tags:
+        - job
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: name
+          type: string
+          description: 任务名称
+        - in: query
+          name: status
+          type: string
+          enum:
+            - NOT_STARTED
+            - IN_PROCESS
+            - COMPLETED
+            - RUNNABLE
+            - USER_PAUSE
+            - SYSTEM_SUSPENDED
+            - TERMINATE
+            - IN_QUEUE
+            - SYSTEM_HANG_UP
+            - WAITING_FOR_REDIAL
+            - ACCOUNT_DISABLE
+            - MAINTAIN
+          description: 任务状态,(NOT_STARTED, "未开始"),(IN_PROCESS, "进行中"),(COMPLETED, "已完成"),(RUNNABLE, "可运行"),(USER_PAUSE, "用户暂停"),(SYSTEM_SUSPENDED, "系统暂停"),(TERMINATE, "已终止"),(IN_QUEUE, "排队中"),(SYSTEM_HANG_UP,"系统挂起"),(WAITING_FOR_REDIAL,"等待重呼"),(ACCOUNT_DISABLE,"账户禁用"),(MAINTAIN,"系统维护");
+        - in: query
+          name: pageNum
+          type: integer
+          format: int32
+          description: 第几页,默认1
+        - in: query
+          name: pageSize
+          type: integer
+          format: int32
+          description: 页面大小,选填,默认20,最大值100
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/GetJobsRsp"
+  /job/getJobDetail:
+    get:
+      tags:
+        - job
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: robotCallJobId
+          required: true
+          type: integer
+          format: int64
+          description: 任务Id
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: ""#/definitions/GetJobDetailRsp"
 definitions:
+  GetJobDetailRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data: 
+            $ref: "#/definitions/Job"
+    
+  GetJobsRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            $ref: "#/definitions/JobsPage"
+  JobsPage:
+    type: object
+    properties:
+      number:
+        type: integer
+        format: int32
+      pageSize:
+        type: integer
+        format: int32
+      totalElements:
+        type: integer
+        format: int32
+      pages:
+        type: integer
+        format: int32
+      content:
+        type: array
+        items:
+          properties:
+            robotCallJobId:
+              type: integer
+              format: int64
+            name:
+              type: string
+            status:
+              type: string
+            completedTask:
+              type: integer
+              format: int64
+            taskCallTotal:
+              type: integer
+              format: int64
+            createTime:
+              type: string
+            createdByUserName:
+              type: string
+            organizationName:
+              type: string
+  GetJobStatsInfoListRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              type: object
+              properties:
+                taskTotal:
+                  type: integer
+                  format: int64
+                taskCompleted:
+                  type: integer
+                  format: int64
+
+  ReAddCustomerToJobReq:
+    type: object
+    required:
+      - robotCallJobId
+      - customerPersonIds
+    properties:
+      robotCallJobId:
+        type: integer
+        format: int64
+      customerPersonIds:
+        type: array
+        items:
+          type: integer
+          format: int64
+      lastCallRecord:
+        type: boolean
+        description: 是否过滤重复通话记录只显示最近的一条
+        example: true
+      calledPhoneNumber:
+        type: string
+        description: 被叫号码
+      callRecordId:
+        type: integer
+        format: int64
+        description: 通话记录id
+        example: 1542
+      customerPersonName:
+        type: string
+        description: 客户姓名
+        example: 张三
+      customerGroupId:
+        type: integer
+        format: int64
+        description: 分组id
+      resultStatuses:
+        type: array
+        enum:
+          - ANSWERED
+          - NO_ANSWER
+          - BUSY
+          - POWER_OFF
+          - OUT_OF_SERVICE
+          - REFUSED
+          - VACANT_NUMBER
+          - CAN_NOT_CONNECT
+          - FROM_PHONE_ERROR
+          - SYSTEM_ERROR
+          - CALL_LOSS
+          - TRANSFER_ARTIFICIAL
+        description: ANSWERED(0, "已接听", null), NO_ANSWER(1, "无应答", "呼叫号码未接听"), BUSY(2, "忙线中", "呼叫号码占线"), POWER_OFF(3, "关机", "呼叫号码关机"), OUT_OF_SERVICE(4, "停机", "呼叫号码停机"), REFUSED(5, "拒接", "呼叫号码拒接"), VACANT_NUMBER(6, "空号", "呼叫的号码是空号"), CAN_NOT_CONNECT(7, "无法接通", "呼叫的号码无法接通"), FROM_PHONE_ERROR(8, "主叫停机", "主叫号码不可用"), SYSTEM_ERROR(9, "系统错误", "外呼失败，系统错误"), CALL_LOSS(10,"多并发呼损","等待服务中用户挂断"), TRANSFER_ARTIFICIAL(11,"转人工呼损","等待转人工服务中用户挂断");	["ANSWERED", 
+        items:
+          type: string
+      intentLevels:
+        type: array
+        items:
+          type: string
+      followStatus:
+        type: string
+        enum:
+          - CLUE
+          - AI_INITIAL_VISIT
+          - PEOPLE_INITIAL_VISIT
+          - AI_FOLLOW_UP
+          - PEOPLE_FOLLOW_UP
+          - QUOTE
+          - DEAL
+          - LOSS
+        description: 跟进状态CLUE(0, "线索"), AI_INITIAL_VISIT(1, "AI初访"), PEOPLE_INITIAL_VISIT(2, "人工初访"), AI_FOLLOW_UP(3, "AI持续跟进"), PEOPLE_FOLLOW_UP(4, "人工持续跟进"), QUOTE(5, "报价"), DEAL(6, "成交"), LOSS(7, "流失");
+      dialogFlowId:
+        type: integer
+        format: int64
+        description: 话术ID
+        example: 1
+      earliestCreationTime:
+        type: string
+        description: 最早创建时间，日期标准格式，请不要包含时间。可以为空
+        example: '2018-07-25'
+      latestCreationTime:
+        type: string
+        description: 最晚创建时间，日期标准格式，请不要包含时间。可以为空
+        example: '2018-07-30'
+  ExecuteJobsRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          robotCallJobId:
+            type: integer
+            format: int64
+            description: 任务id
+          robotCallJobName:
+            type: string
+            description: 任务名
+          msg:
+            type: string
+            description: 信息
+  ExecuteJobsReq:
+    type: object
+    properties:
+      operation:
+        type: string
+      executable:
+        type: array
+        items:
+          $ref: "#/definitions/ExecuteJobInfo"
+        description: 操作任务
+  ExecuteJobInfo:
+    type: object
+    properties:
+      robotCallJobId:
+        type: integer
+        format: int64
+        description: 任务id
+      robotCallJobName:
+        type: string
+        description: 任务名
+      createTime:
+        type: string
+        description: 创建时间
+      createUserName:
+        type: string
+        description: 任务创建人
+      status:
+        type: string
+        enum:
+          - NOT_STARTED
+          - IN_PROCESS
+          - COMPLETED
+          - RUNNABLE
+          - USER_PAUSE
+          - SYSTEM_SUSPENDED
+          - TERMINATE
+          - IN_QUEUE
+          - SYSTEM_HANG_UP
+          - WAITING_FOR_REDIAL
+          - ACCOUNT_DISABLE
+          - MAINTAIN
+        description: 任务状态，NOT_STARTED(0, "未开始"),IN_PROCESS(1, "进行中")，COMPLETED(2, "已完成"),RUNNABLE(3, "可运行"),USER_PAUSE(4, "用户暂停"),SYSTEM_SUSPENDED(5, "系统暂停")，TERMINATE(6, "已终止"),IN_QUEUE(7, "排队中"),SYSTEM_HANG_UP(10, "系统挂起"),WAITING_FOR_REDIAL(11, "等待重呼"),ACCOUNT_DISABLE(12, "账户禁用"),MAINTAIN(13, "系统维护");
+      hangUpType:
+        type: string
+        enum:
+          - ACCOUNT_DEBT
+          - NO_ROBOT_AVAILABLE
+          - PHONE_UNBIND
+          - LINE_BREAKDOWN
+          - AVAILABLE_ROBOT_NOT_ENOUGH
+        description: 系统挂起类型 ACCOUNT_DEBT(0, "账户欠费", "使用的线路账户已欠费"),NO_ROBOT_AVAILABLE(1, "没有可用坐席", "当前没有可用坐席"),PHONE_UNBIND(2, "线路已解绑", "使用的线路已解绑"),LINE_BREAKDOWN(3, "线路故障", "使用的线路状态均为故障"),AVAILABLE_ROBOT_NOT_ENOUGH(4,"有效坐席数不足","有效坐席数不足，请检查有效AI坐席数量！");
+      hangUpReason:
+        type: string
+        description: 系统挂起原因
+      statsInfo:
+        $ref: "#/definitions/StatsInfo"
+  StatsInfo:
+    type: object
+    properties:
+      robotCallJobId:
+        type: integer
+        format: int64
+      completedTask:
+        type: integer
+        format: int64
+        description: 已完成的任务总量
+      totalTask:
+        type: integer
+        format: int64
+        description: 任务总数
+      answeredTask:
+        type: integer
+        format: int64
+        description: 接通电话总量
+      ablevelCustomer:
+        type: integer
+        format: int64
+        description: AB类客户数量
+  CheckAllRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          robotCallJobId:
+            type: string
+            description: 任务id
+          robotCallJobName:
+            type: string
+            description: 任务名
+          createTime:
+            type: string
+            description: 创建时间
+          createUserName:
+            type: string
+            description: 任务创建人
+          status:
+            type: string
+            enum:
+              - NOT_STARTED
+              - IN_PROCESS
+              - COMPLETED
+              - RUNNABLE
+              - USER_PAUSE
+              - SYSTEM_SUSPENDED
+              - TERMINATE
+              - IN_QUEUE
+              - SYSTEM_HANG_UP
+              - WAITING_FOR_REDIAL
+              - ACCOUNT_DISABLE
+              - MAINTAIN
+            description: 任务状态，NOT_STARTED(0, "未开始"),IN_PROCESS(1, "进行中")，COMPLETED(2, "已完成"),RUNNABLE(3, "可运行"),USER_PAUSE(4, "用户暂停"),SYSTEM_SUSPENDED(5, "系统暂停")，TERMINATE(6, "已终止"),IN_QUEUE(7, "排队中"),SYSTEM_HANG_UP(10, "系统挂起"),WAITING_FOR_REDIAL(11, "等待重呼"),ACCOUNT_DISABLE(12, "账户禁用"),MAINTAIN(13, "系统维护");
+          hangUpType:
+            type: string
+            enum:
+              - ACCOUNT_DEBT
+              - NO_ROBOT_AVAILABLE
+              - PHONE_UNBIND
+              - LINE_BREAKDOWN
+              - AVAILABLE_ROBOT_NOT_ENOUGH
+            description: 系统挂起类型 ACCOUNT_DEBT(0, "账户欠费", "使用的线路账户已欠费"),NO_ROBOT_AVAILABLE(1, "没有可用坐席", "当前没有可用坐席"),PHONE_UNBIND(2, "线路已解绑", "使用的线路已解绑"),LINE_BREAKDOWN(3, "线路故障", "使用的线路状态均为故障"),AVAILABLE_ROBOT_NOT_ENOUGH(4,"有效坐席数不足","有效坐席数不足，请检查有效AI坐席数量！");
+          hangUpReason:
+            type: string
+            description: 系统挂起原因
+          completedTask:
+            type: integer
+            format: int64
+            description: 已完成的任务总量
+          totalTask:
+            type: integer
+            format: int64
+            description: 任务总数
+          answeredTask:
+            type: integer
+            format: int64
+            description: 接通电话总量
+          ablevelCustomer:
+            type: integer
+            format: int64
+            description: AB类客户数量
+          msg:
+            type: string
+            format: string
+            description: 信息
+  ImportCustomerReq:
+    type: object
+    required:
+      - robotCallJobId
+      - phoneNumber
+    properties:
+      robotCallJobId:
+        type: integer
+        format: int64
+        description: 任务Id
+        example: 1
+      callRecordDup:
+        type: boolean
+        description: 是否已呼列表去重 默认false
+        example: false
+        default: false
+      name:
+        type: string
+        description: 客户名称
+        example: 张三
+      gender:
+        type: string
+        enum:
+          - MALE
+          - FEMALE
+        description: 性别
+      phoneNumber:
+        type: string
+        description: 客户电话
+      properties:
+        type: object
+        description: 话术中自定义的语句内容
+  JobUpdateRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            type: object
+            properties:
+              robotCallJobId:
+                type: integer
+                format: int64
   JobCreateRsp:
     allOf:
       - $ref: "#/definitions/APIResponse"
@@ -423,7 +1086,7 @@ definitions:
           robotCallJobId:
             type: integer
             format: int64
-  CreateJobReq:
+  Job:
     type: object
     properties:
       concurrencyQuota:
