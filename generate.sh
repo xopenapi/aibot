@@ -13,3 +13,10 @@ docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli generate \
     --git-user-id xopenapi \
     -g kotlin-spring \
     -o /local/out/tanyibot-api-server
+
+docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli generate \
+    -i /local/tanyibot.yaml \
+    --git-repo-id tanyibot-api-java \
+    --git-user-id xopenapi \
+    -g java \
+    -o /local/out/tanyibot-api-java
