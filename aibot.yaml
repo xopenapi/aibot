@@ -1,0 +1,2111 @@
+swagger: "2.0"
+info:
+  description: "aibot api"
+  version: 1.0.0
+  title: aibot open api
+  license:
+    name: Apache-2.0
+    url: "https://www.apache.org/licenses/LICENSE-2.0.html"
+host: api.lucfish.com
+basePath: /aibot/v1
+tags:
+  - name: isv
+    description: isv
+  - name: tenant
+    description: tenant
+  - name: phone
+    description: phone
+schemes:
+  - https
+paths:
+  /isv/updateIsvInfo:
+    post:
+      tags:
+        - isv
+      summary: 修改ISV对象的公司签名和回调地址
+      description: 修改ISV对象的公司签名和回调地址
+      operationId: updateIsvInfo
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateIsvInfoReq"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/APIResponse"
+  /isv/genSubAccountIsv:
+    post:
+      tags:
+        - isv
+      summary: 通过此接口可生成子账号的ISV账号
+      description: 通过此接口可生成子账号的ISV账号
+      operationId: genSubAccountIsv
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/GetSubAccountIsvReq"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/GetSubAccountIsvResp"
+  /isv/getIsvList:
+    post:
+      tags:
+        - isv
+      summary: 获取isv列表
+      description: 通过此接口获取ISV账号列表
+      operationId: getIsvList
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/GetIsvListRsp"
+  /tenant/getTenant:
+    get:
+      tags:
+        - tenant
+      summary: 获取公司列表接口
+      description: 获取公司列表接口
+      operationId: getTenant
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/GetTenantRsp"
+  /phone/getPhoneList:
+    get:
+      tags:
+        - phone
+      summary: 通过接口可以获取所有可用的外呼线路的列表
+      description: 通过接口可以获取所有可用的外呼线路的列表
+      operationId: getPhoneList
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/GetPhoneListRsp"
+  /phone/updatePhoneInfoByTenantPhoneNumberId:
+    post:
+      tags:
+        - phone
+      summary: 通过此接口修改线路的归属地、行业、黑名单，只能修改归属客户自己的线路
+      description: 通过此接口修改线路的归属地、行业、黑名单，只能修改归属客户自己的线路
+      operationId: updatePhoneInfoByTenantPhoneNumberId
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/UpdatePhoneInfoByTenantPhoneNumberIdReq"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/APIResponse"
+  /phone/updatePhonePriceByTenantPhoneNumberId:
+    post:
+      tags:
+        - phone
+      summary: 修改绑定客户线路的价格
+      description: 修改绑定客户线路的价格
+      operationId: updatePhonePriceByTenantPhoneNumberId
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/APIResponse"
+  /csRobot/staffGroupList:
+    get:
+      tags:
+        - csRobot
+      summary: 获取人工坐席列表接口
+      description: 通过此接口可以获取用户所有的有效坐席组列表信息
+      operationId: staffGroupList
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: pageNum
+          type: integer
+          format: int32
+          required: true
+        - in: query
+          name: pageSize
+          type: integer
+          format: int32
+          required: true
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/StaffGroupListRsp"
+  /dialogFlow/getDialogFlowList:
+    get:
+      tags:
+        - dialogFlow
+      summary: 获取公司的机器人话术列表接口
+      description: 通过接口可以获取指定公司的所有配置完成的机器人话术
+      operationId: getDialogFlowList
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/DialogFlowList"
+  /dialogFlow/getDialogFlowCallJobRelatedInfo:
+    get:
+      tags:
+        - dialogFlow
+      summary: 获取话术中存在人工介入和转人工等标识
+      description: 通过接口可以获取指定话术的标识
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: dialogFlowId
+          required: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/DialogFlowCallJobRelatedInfo"
+  /dialogFlow/exportDialogFlowWordDoc:
+    get:
+      tags:
+        - dialogFlow
+      summary: 获取话术主流程word文档
+      description: 通过接口可以获取指定话术的主流程文档
+      operationId: exportDialogFlowWordDoc
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: dialogFlowId
+          required: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            allOf:
+              - $ref: "#/definitions/APIResponse"
+              - type: object
+                properties:
+                  data:
+                    type: string
+                    description: 导出文档的下载链接
+  /dialogFlow/getDialogContentInfo:
+    get:
+      tags:
+        - dialogFlow
+      summary: 获取话术中所有需要录音的文本和录音文件
+      description: 通过接口可以获取指定话术所有需要录音的文本和录音文件
+      operationId: getDialogContentInfo
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: dialogFlowId
+          required: true
+          type: integer
+          format: int64
+          description: 话术ID
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/DialogContentInfo"
+  /dialogFlow/batchUpload:
+    post:
+      tags:
+        - dialogFlow
+      summary: 上传话术录音
+      description: 通过接口可以上传话术中指定文本的录音
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - in: formData
+          name: dialogFlowId
+          type: integer
+          format: int64
+          required: true
+          description: 话术ID
+        - in: formData
+          name: file
+          type: file
+          required: true
+          description: 音频文件(MP3或者wav格式)，或者多个录音文件的zip包，录音文件名称为对应录音文本的label
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/APIResponse"
+  /dialogFlow/copyDialogFlow:
+    post:
+      tags:
+        - dialogFlow
+      summary: 话术复制
+      description: 通过接口可以复制指定话术
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: "#/definitions/CopyDialogFlowReq"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/CopyDialogFlowRsp"
+  /dialogFlow/getTotalDialogFlowList:
+    post:
+      tags:
+        - dialogFlow
+      summary: 话术列表
+      description: 通过接口可以获取所有话术列表
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: "#/definitions/GetTotalDialogFlowListReq"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/TotalDialogFlowListRsp"
+  /intentLevelTag/getUsedIntentLevelTagList:
+    get:
+      tags:
+        - intentLevelTag
+      summary: 获取已使用的意向标签组列表接口
+      description: 通过此接口可以获取已使用的所有意向标签组
+      operationId: getUsedIntentLevelTagList
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/GetUsedIntentLevelTagListRsp"
+  /intentLevelTag/getIntentLevelTag:
+    get:
+      tags:
+        - intentLevelTag
+      summary: 获取意向标签内容
+      description: 通过接口可以获取指定意向标签分组的内容
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: intentLevelTagId
+          type: integer
+          format: int32
+          required: true
+          description: 标签分组Id
+          default: 0
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/GetIntentLevelTagRsp"
+  /callIntercept/list:
+    get:
+      tags:
+        - callIntercept
+      summary: 获取拦截组列表接口
+      description: 通过此接口可以获取所有拦截组
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/InterceptListRsp"
+  /policyGroup/getIdAndNamePairList:
+    get:
+      tags:
+        - policyGroup
+      summary: 获取外呼策略组选择接口
+      description: 通过此接口可以获取外呼策略组id和名称对应的键值对列表
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/GetIdAndNamePairListRsp"
+  /policyGroup/list:
+    get:
+      tags:
+        - policyGroup
+      summary: 获取外呼策略组列表接口
+      description: 通过此接口可以获取用户所有的外呼策略组信息
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/GetPolicyGroupListRsp"
+  /policyGroup/create:
+    post:
+      tags:
+        - policyGroup
+      summary: 创建外呼策略组接口
+      description: 创建新的外呼策略组
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: "#/definitions/CreatePolicyGroupReq"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/APIResponse"
+  /policyGroup/update:
+    post:
+      tags:
+        - policyGroup
+      summary: 更新外呼策略组接口
+      description: 更新新的外呼策略组
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: "#/definitions/UpdatePolicyGroupReq"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/APIResponse"
+  /job/create:
+    post:
+      tags:
+        - job
+      summary: 通过此接口可以创建新的任务
+      description: 创建任务,支持使用多个无主叫固话,只需设置总并发数,由系统自动分配每个线路的并发。
+      operationId: create
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/Job"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/JobCreateRsp"
+  /job/start:
+    post:
+      operationId: start
+      tags:
+        - job
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            required:
+              - robotCallJobId
+            properties:
+              robotCallJobId:
+                type: integer
+                format: int64
+                description: 任务Id
+                example: 1
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/APIResponse"
+  /job/pause:
+    post:
+      tags:
+        - job
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            properties:
+              robotCallJobId:
+                type: integer
+                format: int64
+                description: 任务Id
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/APIResponse"
+  /job/delete:
+    post:
+      tags:
+        - job
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            properties:
+              robotCallJobId:
+                type: integer
+                format: int64
+                description: 删除任务
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/APIResponse"
+  /job/importCustomer:
+    post:
+      operationId: importCustomer
+      tags:
+        - job
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/ImportCustomerReq"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/APIResponse"
+  /job/updateAiCount:
+    post:
+      tags:
+        - job
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            properties:
+              robotCallJobId:
+                type: integer
+                format: int64
+                description: 任务Id
+              robotCount:
+                type: integer
+                format: int32
+                description: 坐席数量
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/APIResponse"
+  /job/checkAll:
+    post:
+      tags:
+        - job
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            required:
+              - operation
+            properties:
+              operation:
+                type: string
+                enum:
+                  - PAUSE
+                  - START
+                description: 操作类型，必填 PAUSE:暂停 START:开始
+              robotCallJobIdSet:
+                type: array
+                items:
+                  type: string
+                description: 任务id集合
+              statusSet:
+                type: string
+                enum:
+                  - NOT_STARTED
+                  - IN_PROCESS
+                  - COMPLETED
+                  - RUNNABLE
+                  - USER_PAUSE
+                  - SYSTEM_SUSPENDED
+                  - TERMINATE
+                  - IN_QUEUE
+                  - SYSTEM_HANG_UP
+                  - WAITING_FOR_REDIAL
+                  - ACCOUNT_DISABLE
+                  - MAINTAIN
+                description: 任务状态，NOT_STARTED(0, "未开始"),IN_PROCESS(1, "进行中")，COMPLETED(2, "已完成"),RUNNABLE(3, "可运行"),USER_PAUSE(4, "用户暂停"),SYSTEM_SUSPENDED(5, "系统暂停")，TERMINATE(6, "已终止"),IN_QUEUE(7, "排队中"),SYSTEM_HANG_UP(10, "系统挂起"),WAITING_FOR_REDIAL(11, "等待重呼"),ACCOUNT_DISABLE(12, "账户禁用"),MAINTAIN(13, "系统维护");
+              name:
+                type: string
+                description: 任务名称
+              beginCreateDate:
+                type: string
+                description: 开始任务创建日期
+              endCreateDate:
+                type: string
+                description: 结束任务创建日期
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/CheckAllRsp"
+  /job/executeJobs:
+    post:
+      tags:
+        - job
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/ExecuteJobsReq"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ExecuteJobsRsp"
+  /job/modify:
+    patch:
+      tags:
+        - job
+      summary: 修改任务接口
+      description: 通过此接口可以修改任务
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: "#/definitions/Job"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/JobUpdateRsp"
+  /job/reAddCustomerToJob:
+    post:
+      tags:
+        - job
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/ReAddCustomerToJobReq"
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/APIResponse"
+  /job/getJobStatsInfoList:
+    post:
+      tags:
+        - job
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            properties:
+              robotCallJobId:
+                type: array
+                items:
+                  type: string
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/GetJobStatsInfoListRsp"
+  /job/getJobs:
+    get:
+      summary: 获取任务列表接口
+      description: 通过此接口可以获取指定公司的任务列表
+      tags:
+        - job
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: name
+          type: string
+          description: 任务名称
+        - in: query
+          name: status
+          type: string
+          enum:
+            - NOT_STARTED
+            - IN_PROCESS
+            - COMPLETED
+            - RUNNABLE
+            - USER_PAUSE
+            - SYSTEM_SUSPENDED
+            - TERMINATE
+            - IN_QUEUE
+            - SYSTEM_HANG_UP
+            - WAITING_FOR_REDIAL
+            - ACCOUNT_DISABLE
+            - MAINTAIN
+          description: 任务状态,(NOT_STARTED, "未开始"),(IN_PROCESS, "进行中"),(COMPLETED, "已完成"),(RUNNABLE, "可运行"),(USER_PAUSE, "用户暂停"),(SYSTEM_SUSPENDED, "系统暂停"),(TERMINATE, "已终止"),(IN_QUEUE, "排队中"),(SYSTEM_HANG_UP,"系统挂起"),(WAITING_FOR_REDIAL,"等待重呼"),(ACCOUNT_DISABLE,"账户禁用"),(MAINTAIN,"系统维护");
+        - in: query
+          name: pageNum
+          type: integer
+          format: int32
+          description: 第几页,默认1
+        - in: query
+          name: pageSize
+          type: integer
+          format: int32
+          description: 页面大小,选填,默认20,最大值100
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/GetJobsRsp"
+  /job/getJobDetail:
+    get:
+      tags:
+        - job
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: robotCallJobId
+          required: true
+          type: integer
+          format: int64
+          description: 任务Id
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/GetJobDetailRsp"
+definitions:
+  GetJobDetailRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            $ref: "#/definitions/Job"
+
+  GetJobsRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            $ref: "#/definitions/JobsPage"
+  JobsPage:
+    type: object
+    properties:
+      number:
+        type: integer
+        format: int32
+      pageSize:
+        type: integer
+        format: int32
+      totalElements:
+        type: integer
+        format: int32
+      pages:
+        type: integer
+        format: int32
+      content:
+        type: array
+        items:
+          properties:
+            robotCallJobId:
+              type: integer
+              format: int64
+            name:
+              type: string
+            status:
+              type: string
+            completedTask:
+              type: integer
+              format: int64
+            taskCallTotal:
+              type: integer
+              format: int64
+            createTime:
+              type: string
+            createdByUserName:
+              type: string
+            organizationName:
+              type: string
+  GetJobStatsInfoListRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              type: object
+              properties:
+                taskTotal:
+                  type: integer
+                  format: int64
+                taskCompleted:
+                  type: integer
+                  format: int64
+
+  ReAddCustomerToJobReq:
+    type: object
+    required:
+      - robotCallJobId
+      - customerPersonIds
+    properties:
+      robotCallJobId:
+        type: integer
+        format: int64
+      customerPersonIds:
+        type: array
+        items:
+          type: integer
+          format: int64
+      lastCallRecord:
+        type: boolean
+        description: 是否过滤重复通话记录只显示最近的一条
+        example: true
+      calledPhoneNumber:
+        type: string
+        description: 被叫号码
+      callRecordId:
+        type: integer
+        format: int64
+        description: 通话记录id
+        example: 1542
+      customerPersonName:
+        type: string
+        description: 客户姓名
+        example: 张三
+      customerGroupId:
+        type: integer
+        format: int64
+        description: 分组id
+      resultStatuses:
+        type: array
+        enum:
+          - ANSWERED
+          - NO_ANSWER
+          - BUSY
+          - POWER_OFF
+          - OUT_OF_SERVICE
+          - REFUSED
+          - VACANT_NUMBER
+          - CAN_NOT_CONNECT
+          - FROM_PHONE_ERROR
+          - SYSTEM_ERROR
+          - CALL_LOSS
+          - TRANSFER_ARTIFICIAL
+        description: ANSWERED(0, "已接听", null), NO_ANSWER(1, "无应答", "呼叫号码未接听"), BUSY(2, "忙线中", "呼叫号码占线"), POWER_OFF(3, "关机", "呼叫号码关机"), OUT_OF_SERVICE(4, "停机", "呼叫号码停机"), REFUSED(5, "拒接", "呼叫号码拒接"), VACANT_NUMBER(6, "空号", "呼叫的号码是空号"), CAN_NOT_CONNECT(7, "无法接通", "呼叫的号码无法接通"), FROM_PHONE_ERROR(8, "主叫停机", "主叫号码不可用"), SYSTEM_ERROR(9, "系统错误", "外呼失败，系统错误"), CALL_LOSS(10,"多并发呼损","等待服务中用户挂断"), TRANSFER_ARTIFICIAL(11,"转人工呼损","等待转人工服务中用户挂断");	["ANSWERED",
+        items:
+          type: string
+      intentLevels:
+        type: array
+        items:
+          type: string
+      followStatus:
+        type: string
+        enum:
+          - CLUE
+          - AI_INITIAL_VISIT
+          - PEOPLE_INITIAL_VISIT
+          - AI_FOLLOW_UP
+          - PEOPLE_FOLLOW_UP
+          - QUOTE
+          - DEAL
+          - LOSS
+        description: 跟进状态CLUE(0, "线索"), AI_INITIAL_VISIT(1, "AI初访"), PEOPLE_INITIAL_VISIT(2, "人工初访"), AI_FOLLOW_UP(3, "AI持续跟进"), PEOPLE_FOLLOW_UP(4, "人工持续跟进"), QUOTE(5, "报价"), DEAL(6, "成交"), LOSS(7, "流失");
+      dialogFlowId:
+        type: integer
+        format: int64
+        description: 话术ID
+        example: 1
+      earliestCreationTime:
+        type: string
+        description: 最早创建时间，日期标准格式，请不要包含时间。可以为空
+        example: "2018-07-25"
+      latestCreationTime:
+        type: string
+        description: 最晚创建时间，日期标准格式，请不要包含时间。可以为空
+        example: "2018-07-30"
+  ExecuteJobsRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          robotCallJobId:
+            type: integer
+            format: int64
+            description: 任务id
+          robotCallJobName:
+            type: string
+            description: 任务名
+          msg:
+            type: string
+            description: 信息
+  ExecuteJobsReq:
+    type: object
+    properties:
+      operation:
+        type: string
+      executable:
+        type: array
+        items:
+          $ref: "#/definitions/ExecuteJobInfo"
+        description: 操作任务
+  ExecuteJobInfo:
+    type: object
+    properties:
+      robotCallJobId:
+        type: integer
+        format: int64
+        description: 任务id
+      robotCallJobName:
+        type: string
+        description: 任务名
+      createTime:
+        type: string
+        description: 创建时间
+      createUserName:
+        type: string
+        description: 任务创建人
+      status:
+        type: string
+        enum:
+          - NOT_STARTED
+          - IN_PROCESS
+          - COMPLETED
+          - RUNNABLE
+          - USER_PAUSE
+          - SYSTEM_SUSPENDED
+          - TERMINATE
+          - IN_QUEUE
+          - SYSTEM_HANG_UP
+          - WAITING_FOR_REDIAL
+          - ACCOUNT_DISABLE
+          - MAINTAIN
+        description: 任务状态，NOT_STARTED(0, "未开始"),IN_PROCESS(1, "进行中")，COMPLETED(2, "已完成"),RUNNABLE(3, "可运行"),USER_PAUSE(4, "用户暂停"),SYSTEM_SUSPENDED(5, "系统暂停")，TERMINATE(6, "已终止"),IN_QUEUE(7, "排队中"),SYSTEM_HANG_UP(10, "系统挂起"),WAITING_FOR_REDIAL(11, "等待重呼"),ACCOUNT_DISABLE(12, "账户禁用"),MAINTAIN(13, "系统维护");
+      hangUpType:
+        type: string
+        enum:
+          - ACCOUNT_DEBT
+          - NO_ROBOT_AVAILABLE
+          - PHONE_UNBIND
+          - LINE_BREAKDOWN
+          - AVAILABLE_ROBOT_NOT_ENOUGH
+        description: 系统挂起类型 ACCOUNT_DEBT(0, "账户欠费", "使用的线路账户已欠费"),NO_ROBOT_AVAILABLE(1, "没有可用坐席", "当前没有可用坐席"),PHONE_UNBIND(2, "线路已解绑", "使用的线路已解绑"),LINE_BREAKDOWN(3, "线路故障", "使用的线路状态均为故障"),AVAILABLE_ROBOT_NOT_ENOUGH(4,"有效坐席数不足","有效坐席数不足，请检查有效AI坐席数量！");
+      hangUpReason:
+        type: string
+        description: 系统挂起原因
+      statsInfo:
+        $ref: "#/definitions/StatsInfo"
+  StatsInfo:
+    type: object
+    properties:
+      robotCallJobId:
+        type: integer
+        format: int64
+      completedTask:
+        type: integer
+        format: int64
+        description: 已完成的任务总量
+      totalTask:
+        type: integer
+        format: int64
+        description: 任务总数
+      answeredTask:
+        type: integer
+        format: int64
+        description: 接通电话总量
+      ablevelCustomer:
+        type: integer
+        format: int64
+        description: AB类客户数量
+  CheckAllRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          robotCallJobId:
+            type: string
+            description: 任务id
+          robotCallJobName:
+            type: string
+            description: 任务名
+          createTime:
+            type: string
+            description: 创建时间
+          createUserName:
+            type: string
+            description: 任务创建人
+          status:
+            type: string
+            enum:
+              - NOT_STARTED
+              - IN_PROCESS
+              - COMPLETED
+              - RUNNABLE
+              - USER_PAUSE
+              - SYSTEM_SUSPENDED
+              - TERMINATE
+              - IN_QUEUE
+              - SYSTEM_HANG_UP
+              - WAITING_FOR_REDIAL
+              - ACCOUNT_DISABLE
+              - MAINTAIN
+            description: 任务状态，NOT_STARTED(0, "未开始"),IN_PROCESS(1, "进行中")，COMPLETED(2, "已完成"),RUNNABLE(3, "可运行"),USER_PAUSE(4, "用户暂停"),SYSTEM_SUSPENDED(5, "系统暂停")，TERMINATE(6, "已终止"),IN_QUEUE(7, "排队中"),SYSTEM_HANG_UP(10, "系统挂起"),WAITING_FOR_REDIAL(11, "等待重呼"),ACCOUNT_DISABLE(12, "账户禁用"),MAINTAIN(13, "系统维护");
+          hangUpType:
+            type: string
+            enum:
+              - ACCOUNT_DEBT
+              - NO_ROBOT_AVAILABLE
+              - PHONE_UNBIND
+              - LINE_BREAKDOWN
+              - AVAILABLE_ROBOT_NOT_ENOUGH
+            description: 系统挂起类型 ACCOUNT_DEBT(0, "账户欠费", "使用的线路账户已欠费"),NO_ROBOT_AVAILABLE(1, "没有可用坐席", "当前没有可用坐席"),PHONE_UNBIND(2, "线路已解绑", "使用的线路已解绑"),LINE_BREAKDOWN(3, "线路故障", "使用的线路状态均为故障"),AVAILABLE_ROBOT_NOT_ENOUGH(4,"有效坐席数不足","有效坐席数不足，请检查有效AI坐席数量！");
+          hangUpReason:
+            type: string
+            description: 系统挂起原因
+          completedTask:
+            type: integer
+            format: int64
+            description: 已完成的任务总量
+          totalTask:
+            type: integer
+            format: int64
+            description: 任务总数
+          answeredTask:
+            type: integer
+            format: int64
+            description: 接通电话总量
+          ablevelCustomer:
+            type: integer
+            format: int64
+            description: AB类客户数量
+          msg:
+            type: string
+            format: string
+            description: 信息
+  ImportCustomerReq:
+    type: object
+    required:
+      - robotCallJobId
+      - phoneNumber
+    properties:
+      robotCallJobId:
+        type: integer
+        format: int64
+        description: 任务Id
+        example: 1
+      callRecordDup:
+        type: boolean
+        description: 是否已呼列表去重 默认false
+        example: false
+        default: false
+      customerPersons:
+        type: array
+        items:
+          $ref: "#/definitions/CustomerPerson"
+  CustomerPerson:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 客户名称
+        example: 张三
+      gender:
+        type: string
+        enum:
+          - MALE
+          - FEMALE
+        description: 性别
+      phoneNumber:
+        type: string
+        description: 客户电话
+      properties:
+        type: object
+        description: 话术中自定义的语句内容
+  JobUpdateRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            type: object
+            properties:
+              robotCallJobId:
+                type: integer
+                format: int64
+  JobCreateRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            type: object
+            properties:
+              robotCallJobId:
+                type: integer
+                format: int64
+  Job:
+    description: Job
+    type: object
+    properties:
+      concurrencyQuota:
+        type: integer
+        format: int32
+        description: 并发数 开启一线多并发时可比robotCount大，不开启一线多并发是与robotCount相同（线路类型为手机号的时候可不传）
+      jobPhoneNumberIdList:
+        type: array
+        description: 通过获取外呼线路接口获取 tenant_phone_number_id,当类型是手机号的时候他的size代表机器人的个数，当类型非手机号的时候他的size只能是1；如果外呼方式选择的是外呼策略组，则里面内容为外呼策略组的id（size只能为1）
+        items:
+          type: integer
+          format: int64
+      transferPhoneNumber:
+        type: array
+        items:
+          type: string
+        description: 转人工号码,触发转人工时轮训号码列表
+      robotCallJob:
+        $ref: "#/definitions/RobotCallJob"
+  RobotCallJob:
+    type: object
+    properties:
+      dialogFlowId:
+        type: integer
+        format: int32
+      isPrior:
+        type: boolean
+      robotCallJobId:
+        type: integer
+        format: int64
+        description: 任务id
+      dailyEndTime:
+        type: string
+      dailyStartTime:
+        type: string
+      description:
+        type: string
+      earlyWarningAlertUsers:
+        type: array
+        items:
+          type: string
+      inactiveTimeList:
+        type: array
+        items:
+          type: object
+          properties:
+            startTime:
+              type: string
+            endTime:
+              type: string
+      name:
+        type: string
+        description: 任务名称
+      mode:
+        type: string
+        enum:
+          - AUTO
+          - MANUAL
+        description: 任务类型 (AUTO, "自动任务"),(MANUAL, "手动任务");
+      phoneType:
+        type: string
+        enum:
+          - MOBILE
+          - LANDLINE
+          - UNFIXED_CALL
+          - CALL_POLICY_GROUP
+        description: 号码类型 (MOBILE, "手机号码"),(LANDLINE, "固话"),(UNFIXED_CALL, "无主叫"), (CALL_POLICY_GROUP, "外呼策略组")
+      robotCount:
+        type: integer
+        format: int32
+      smsAlertLevel:
+        type: array
+        items:
+          type: string
+      smsTemplateId:
+        type: integer
+        format: int32
+      startTime:
+        type: string
+      tenantId:
+        type: integer
+        format: int64
+      smsAlertLevelCode:
+        type: array
+        items:
+          type: integer
+          format: int32
+      wechatPushConditionList:
+        type: array
+        description: 微信推送条件
+        items:
+          $ref: "#/definitions/WechatPushCondition"
+      redialCondition:
+        type: array
+        description: 重拨条件(CALL_LOSS,"呼损客户"),(NO_ANSWER,"无应答"),(BUSY,"忙线中"),(REFUSED,"拒接"),(POWER_OFF,"关机"),(OUT_OF_SERVICE,"停机"),(CAN_NOT_CONNECT,“无法接通“),(FROM_PHONE_ERROR,"主叫欠费"),(SYSTEM_ERROR,"外呼失败")
+        items:
+          enum:
+            - CALL_LOSS
+            - NO_ANSWER
+            - BUSY
+            - REFUSED
+            - POWER_OFF
+            - OUT_OF_SERVICE
+          type: string
+      redialInterval:
+        type: integer
+        format: int32
+        description: 重拨间隔(分钟，取值范围6分钟~24 x 60分钟)
+      redialTimes:
+        type: integer
+        format: int32
+        description: 重拨次数(取值范围1~10）
+      tenantCallInterceptId:
+        type: integer
+        format: int64
+        description: 拦截组id
+  WechatPushCondition:
+    type: object
+    properties:
+      intentLevelCodes:
+        type: array
+        items:
+          type: integer
+          format: int32
+        description: 意向等级
+      durationThreshold:
+        type: integer
+        format: int32
+        description: 通话时长
+      userIds:
+        type: array
+        items:
+          type: integer
+          format: int64
+        description: 微信推送人
+      wechatSendMethod:
+        type: string
+        enum:
+          - SENDTOALL
+          - SENDTOONE
+          - SENDTONONE
+        description: 微信推送方式（SENDTOALL，全推送），（SENDTOONE，单推送），（SENDTONONE 不推送）
+      transferCustomer:
+        type: boolean
+        description: 分配客户给微信推送人
+  UpdatePolicyGroupReq:
+    type: object
+    required:
+      - tenantPhoneNumberId
+    properties:
+      callPolicyGroupId:
+        type: integer
+        format: int64
+        description: 外呼策略组ID
+      name:
+        type: string
+        description: 外呼策略组名称
+      remark:
+        type: string
+        description: 备注
+      dispatchType:
+        type: string
+        enum:
+          - SORT_FIRST
+          - LOCATION_MATCH_FIRST
+        description: 优先级策略，(SORT_FIRST, "排序优先级优先"),(LOCATION_MATCH_FIRST, "归属地匹配优先");
+      tenantPhoneNumberId:
+        type: integer
+        format: int64
+        description: 用户线路ID
+  CreatePolicyGroupReq:
+    type: object
+    required:
+      - name
+      - dispatchType
+      - tenantPhoneNumberId
+    properties:
+      name:
+        type: string
+        description: 外呼策略组名称
+      remark:
+        type: string
+        description: 备注
+      dispatchType:
+        type: string
+        enum:
+          - SORT_FIRST
+          - LOCATION_MATCH_FIRST
+        description: 优先级策略，(SORT_FIRST, "排序优先级优先"),(LOCATION_MATCH_FIRST, "归属地匹配优先");
+      tenantPhoneNumberId:
+        type: integer
+        format: int64
+        description: 用户线路ID
+  GetPolicyGroupListRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            $ref: "#/definitions/PolicyGroup"
+  PolicyGroup:
+    type: object
+    properties:
+      createUserId:
+        type: integer
+        format: int32
+      updateUserId:
+        type: integer
+        format: int32
+      createTime:
+        type: string
+      updateTime:
+        type: string
+      callPolicyGroupId:
+        type: integer
+        format: int32
+        description: 外呼策略组ID
+      tenantId:
+        type: integer
+        format: int64
+        description: 公司ID
+      name:
+        type: string
+      remark:
+        type: string
+        description: 备注
+      phoneType:
+        type: string
+        description: 外呼策略组类型
+      dispatchType:
+        type: string
+        enum:
+          - SORT_FIRST
+          - LOCATION_MATCH_FIRST
+        description: 优先级策略，(SORT_FIRST, "排序优先级优先"),(LOCATION_MATCH_FIRST, "归属地匹配优先")
+      detailList:
+        type: array
+        items:
+          $ref: "#/definitions/CallPolicyGroupDetail"
+
+  CallPolicyGroupDetail:
+    type: object
+    properties:
+      createUserId:
+        type: integer
+        format: int32
+      updateUserId:
+        type: integer
+        format: int32
+      createTime:
+        type: string
+      updateTime:
+        type: string
+      callPolicyGroupDetailId:
+        type: integer
+        format: int32
+      callPolicyGroupId:
+        type: integer
+        format: int32
+      tenantId:
+        type: integer
+        format: int64
+      phoneNumberId:
+        type: integer
+        format: int32
+      tenantPhoneNumberId:
+        type: integer
+        format: int32
+      sort:
+        type: integer
+        format: int32
+      phoneNumberInfo:
+        type: array
+        items:
+          $ref: "#/definitions/Phone"
+      lineStatus:
+        $ref: "#/definitions/LineStatus"
+  LineStatus:
+    type: object
+    properties:
+      status:
+        type: string
+      isLineAvailable:
+        type: boolean
+      hint:
+        type: string
+      occupiedJobList:
+        type: string
+  GetIdAndNamePairListRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            $ref: "#/definitions/PolicyGroupIdAndNamePair"
+  PolicyGroupIdAndNamePair:
+    type: object
+    properties:
+      callPolicyGroupId:
+        type: string
+        description: 外呼策略组id
+      tenantId:
+        type: integer
+        format: int64
+        description: 公司Id
+      name:
+        type: string
+        description: 外呼策略组名称
+  InterceptListRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: "#/definitions/CallIntercept"
+  CallIntercept:
+    type: object
+    properties:
+      tenantCallInterceptId:
+        type: integer
+        format: int64
+        description: 拦截组Id
+      name:
+        type: string
+        description: 拦截组名称
+      callOutRestrict:
+        type: string
+        description: 是否开启外呼上限设置(YES 开启 NO 不开启)
+        enum:
+          - YES
+          - NO
+      callOutCount:
+        type: integer
+        format: int32
+        description: 外呼次数上限限制
+      callOutDays:
+        type: integer
+        format: int32
+        description: 外呼次数天数内限制
+      notExistDays:
+        type: integer
+        format: int32
+        description: 空号天数限制 0为取消
+      notServiceDays:
+        type: integer
+        format: int32
+        description: 停机天数限制 0为取消
+      type:
+        type: string
+        description: 生效范围 ALL 全网 TENANT 公司内部
+        enum:
+          - ALL
+          - TENANT
+      source:
+        type: string
+        description: 拦截组来源 SYSTEM 系统规则 CUSTOM 自定义规则
+        enum:
+          - SYSTEM
+          - CUSTOM
+      defaultStatus:
+        type: boolean
+        description: 是否默认规则
+  GetIntentLevelTagRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            $ref: "#/definitions/IntentLevelTag"
+  GetUsedIntentLevelTagListRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: "#/definitions/IntentLevelTag"
+  IntentLevelTag:
+    type: object
+    properties:
+      intentLevelTagId:
+        type: integer
+        format: int32
+        description: 意向标签分组Id
+      name:
+        type: string
+        description: 意向标签分组名称
+      details:
+        type: array
+        items:
+          type: object
+          properties:
+            code:
+              type: integer
+              format: int32
+            name:
+              type: string
+  GetTotalDialogFlowListReq:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 话术名称 模糊查询
+        example: 话术复制
+      pageNum:
+        type: integer
+        format: int32
+        description: 页码 默认为1
+        example: 1
+        default: 1
+      pageSize:
+        type: integer
+        format: int32
+        description: 每页条数 默认为20
+        example: 20
+        default: 20
+  TotalDialogFlowListRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            $ref: "#/definitions/DialogFlowPage"
+  DialogFlowPage:
+    type: object
+    properties:
+      number:
+        type: integer
+        format: int32
+      pageSize:
+        type: integer
+        format: int32
+      totalElements:
+        type: integer
+        format: int32
+      pages:
+        type: integer
+        format: int32
+      content:
+        type: array
+        items:
+          $ref: "#/definitions/DialogFlow"
+  CopyDialogFlowReq:
+    type: object
+    required:
+      - dialogFlowTemplateId
+      - name
+    properties:
+      dialogFlowTemplateId:
+        type: integer
+        format: int64
+        description: 被复制话术ID
+      name:
+        type: string
+        format: 话术名称
+        description: 话术复制
+      description:
+        type: string
+        description: 测试话术
+      intentLevelTagId:
+        type: integer
+        format: int64
+        description: 意向规则分组id
+      vadGateMute:
+        type: integer
+        format: int32
+        description: 打断灵敏度 [1-9]
+      maxSentenceSilence:
+        type: integer
+        format: int32
+        description: 反应灵敏度 [1-9]
+      enableAskService:
+        type: boolean
+        description: 是否启用问法
+      branchLevel:
+        type: array
+        items:
+          type: string
+  CopyDialogFlowRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          dialogFlowId:
+            type: integer
+            format: int64
+            description: 话术id
+          name:
+            type: string
+            description: 话术名称
+          intentLevelTagId:
+            type: integer
+            format: int64
+            description: 意向分组id
+          status:
+            type: string
+            description: 话术状态(DRAFT 草稿 PENDING_APPROVAL 等待审核 REJECTED 拒绝 APPROVED 审核通过)
+          createTime:
+            type: string
+            description: 话术创建时间
+          industry:
+            $ref: "#/definitions/Industry"
+          subIndustry:
+            $ref: "#/definitions/Industry"
+          description:
+            type: string
+            description: 描述
+          type:
+            type: string
+            enum:
+              - NORMAL
+              - TEMPLATE
+            description: 话术类型(NORMAL 客户定制 TEMPLATE 模板)
+  Industry:
+    type: object
+    properties:
+      name:
+        type: string
+      desc:
+        type: string
+  DialogContentInfo:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          dialogFlowId:
+            type: integer
+            format: int64
+            description: 话术id
+          name:
+            type: string
+            description: 话术名称
+          totalRecordCount:
+            type: integer
+            format: int32
+            description: 需要录音条数
+          completeRecordCount:
+            type: integer
+            format: int32
+            description: 已录音条数
+          label:
+            type: string
+            description: 文本标签(上传录音时已次标签为文件名)
+          title:
+            type: string
+            description: 流程、节点、问答知识等名称
+          context:
+            type: string
+            description: 录音文本内容
+          prefixRecordUrl:
+            type: string
+            description: 录音文件，未录音时此字段为空
+          dialogFlowSteps:
+            type: array
+            items:
+              $ref: "#/definitions/DialogFlowStep"
+          dialogFlowConfig:
+            type: array
+            items:
+              $ref: "#/definitions/DialogFlowConfig"
+          robotKnowledges:
+            type: array
+            items:
+              $ref: "#/definitions/RobotKnowledge"
+          knowledgeSteps:
+            type: array
+            items:
+              $ref: "#/definitions/KnowledgeStep"
+  DialogFlowConfig:
+    type: object
+    description: 个性化配置
+    properties:
+      dialogFlowUserSayConfigs:
+        type: array
+        description: 客户单句时长触发
+        items:
+          $ref: "#/definitions/DialogFlowNode"
+      dialogFlowDeclineConfigs:
+        type: array
+        description: 触发多次拒绝
+        items:
+          $ref: "#/definitions/DialogFlowNode"
+      dialogFlowBusinessQAConfigs:
+        type: array
+        description: 触发多个业务问题
+        items:
+          $ref: "#/definitions/DialogFlowNode"
+  DialogFlowStep:
+    type: object
+    properties:
+      title:
+        type: string
+      dialogFlowNodes:
+        type: array
+        items:
+          $ref: "#/definitions/DialogFlowNode"
+  DialogFlowNode:
+    type: object
+    description: 流程节点
+    properties:
+      label:
+        type: string
+      title:
+        type: string
+      context:
+        type: string
+      prefixRecordUrl:
+        type: string
+  RobotKnowledge:
+    type: object
+    description: 问答知识
+    properties:
+      title:
+        type: string
+      answers:
+        type: array
+        items:
+          $ref: "#/definitions/DialogFlowNode"
+  KnowledgeStep:
+    type: object
+    description: 问答知识流程
+    properties:
+      title:
+        type: string
+      dialogFlowNodes:
+        type: array
+        description: 问答知识流程节点
+        items:
+          $ref: "#/definitions/DialogFlowNode"
+  DialogFlowCallJobRelatedInfo:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          placeholderExist:
+            type: boolean
+            description: 是否有变量名
+          jumpToHumanServiceExist:
+            type: boolean
+            description: 是否转人工标识
+          humanInterventionExist:
+            type: boolean
+            description: 是否有人工介入标识
+  DialogFlowList:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: "#/definitions/DialogFlow"
+  DialogFlow:
+    type: object
+    properties:
+      dialogFlowId:
+        type: integer
+        format: int32
+        description: 机器人话术id
+      name:
+        type: string
+        description: 机器人话术名称
+      industry:
+        $ref: "#/definitions/Industry"
+        description: 一级行业类型（枚举在枚举说明中）
+      subIndustry:
+        $ref: "#/definitions/Industry"
+        description: 二级行业类型（枚举在枚举说明中）
+      intentLevelTagId:
+        type: integer
+        format: int64
+        description: 意向标签分组id
+      status:
+        type: string
+        description: 话术状态(DRAFT 草稿 PENDING_APPROVAL 等待审核 REJECTED 拒绝 APPROVED 审核通过)
+      createTime:
+        type: string
+        description: 创建时间
+      type:
+        type: string
+      description:
+        type: string
+      intentLevelTagName:
+        type: string
+  StaffGroupListRsp:
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          number:
+            type: integer
+            format: int32
+          pageSize:
+            type: integer
+            format: int32
+          totalElements:
+            type: integer
+            format: int32
+          pages:
+            type: integer
+            format: int32
+          csStaffGroupId:
+            type: integer
+            format: int64
+          groupName:
+            type: string
+  GetTenantRsp:
+    title: GetTenantRsp
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          tenantName:
+            type: string
+          tenantId:
+            type: string
+  GetIsvListRsp:
+    title: GetIsvListRsp
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              type: object
+              properties:
+                tenantSign:
+                  type: string
+                appKey:
+                  type: string
+                appSecret:
+                  type: string
+                callbackUrl:
+                  type: string
+  UpdateIsvInfoReq:
+    title: UpdateIsvInfoReq
+    type: object
+    required:
+      - tenantSign
+    properties:
+      tenantSign:
+        type: string
+      callbackUrl:
+        type: string
+      smsCallbackUrl:
+        type: string
+  GetSubAccountIsvReq:
+    title: GetSubAccountIsvReq
+    description: ""
+    type: object
+    required:
+      - tenantSign
+      - phoneNumber
+    properties:
+      tenantSign:
+        type: string
+      phoneNumber:
+        type: string
+  GetSubAccountIsvResp:
+    title: GetSubAccountIsvResp
+    description: ""
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: 响应码
+      requestId:
+        type: string
+        description: 请求Id
+      resultMsg:
+        type: string
+        description: 响应说明
+      tenantSign:
+        type: string
+        description: 客户签名
+      appKey:
+        type: string
+      appSecret:
+        type: string
+  GetPhoneListRsp:
+    title: GetPhoneListRsp
+    description: ""
+    allOf:
+      - $ref: "#/definitions/APIResponse"
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: "#/definitions/Phone"
+  Phone:
+    title: Phone
+    description: Phone
+    type: object
+    properties:
+      tenantPhoneNumberId:
+        type: integer
+        format: int64
+        description: 用户线路ID（代表绑给用户的虚拟线路）
+      phoneNumber:
+        type: string
+        description: 电话号码
+      phoneName:
+        type: string
+        description: 电话号码名称
+      phoneType:
+        type: string
+        enum:
+          - MOBILE
+          - LANDLINE
+          - UNFIXED_CALL
+          - VOIP_DEVICE
+          - CS_SEAT
+          - MESSAGE
+          - CALL_POLICY_GROUP
+        description: 电话类型 (MOBILE，"手机"),(LANDLINE，"固话"),(UNFIXED_CALL，"无主叫"),(VOIP_DEVICE，"网关设备"), (CS_SEAT，"人工外呼"),(MESSAGE，"短信"),(CALL_POLICY_GROUP，"外呼策略组")
+      localBillRate:
+        type: integer
+        format: int32
+        description: 本地话费（单位：厘）
+      otherBillRate:
+        type: integer
+        format: int32
+        description: 外地话费（单位：厘）
+      callOutIndustry:
+        type: string
+        description: (FINANCE, "金融"),(OTHER, "其他")
+      areaCode:
+        type: string
+        description: 归属地区号
+      province:
+        type: string
+        description: 归属地省
+      city:
+        type: string
+        description: 归属地市
+      deadArea:
+        type: array
+        items:
+          properties:
+            city:
+              type: string
+            prov:
+              type: string
+        description: 无法外呼地区
+      tenantId:
+        type: integer
+        format: int64
+      concurrency:
+        type: integer
+        format: int32
+      phoneNumberId:
+        type: integer
+        format: int32
+        description: 线路ID（代表实际的线路）
+      accountFare:
+        type: integer
+        format: int32
+        description: 账户余额，单位（厘）
+      enabledStatus:
+        type: integer
+        format: int32
+        description: 是否启用，1为启用，0为禁用
+      monthlyBillRate:
+        type: integer
+        format: int32
+        description: 呼入月租费率，单位（厘）
+      callInLocalBillRate:
+        type: integer
+        format: int32
+        description: 呼入本地通话费用，单位（厘）
+      callInOtherBillRate:
+        type: integer
+        format: int32
+        description: 呼入外地通话费用，单位（厘）
+      callInBillMode:
+        type: string
+        enum:
+          - MONTHLY
+          - CHAT_TIME
+        description: 呼入计费方式 (MONTHLY，"按月租计费"),(CHAT_TIME，"按通话时长(分钟)计费")
+      lastHeartBeatTime:
+        type: string
+        description: 最后外呼时间
+      concurrenceLimit:
+        type: integer
+        format: int32
+        description: 并发数限制
+      remark:
+        type: string
+        description: 备注
+      sipAccount:
+        type: string
+        description: SIP账号
+      ownerName:
+        type: string
+        description: 归属公司名称
+      locationDisplayType:
+        type: string
+        enum:
+          - DEFAULT
+          - RANDOM
+          - NO_DISPLAY
+        description: 线路归属地显示方式（DEFAULT，"默认显示配置归属地"）,（RANDOM，"全国随机显示"）,（NO_DISPLAY，"不显示"）
+      ownerTenantId:
+        type: integer
+        format: int64
+        description: 归属公司ID
+  UpdatePhoneInfoByTenantPhoneNumberIdReq:
+    title: UpdatePhoneInfoByTenantPhoneNumberIdReq
+    description: ""
+    properties:
+      tenantPhoneNumberId:
+        type: integer
+        format: int64
+        description: 用户线路ID（代表绑给用户的虚拟线路）
+        example: 1010
+      areaCode:
+        type: string
+        description: 线路归属地
+        example: http://www.baidu.com
+      province:
+        type: string
+        description: 线路归属地省
+        example: 浙江
+      city:
+        type: string
+        description: 线路归属地市
+        example: 杭州
+      callOutIndustry:
+        type: string
+        enum:
+          - FINANCE
+          - OTHER
+        description: (FINANCE, "金融"),(OTHER, "其他")
+      deadArea:
+        type: object
+        description: 线路黑名单地址
+        properties:
+          city:
+            type: string
+          prov:
+            type: string
+  BaseReq:
+    title: BaseReq
+    description: ""
+    properties:
+      appKey:
+        type: string
+      appSecret:
+        type: string
+      tenantSign:
+        type: string
+      version:
+        type: string
+      timestamp:
+        type: string
+      signature:
+        type: string
+  APIResponse:
+    title: APIResponse
+    description: ""
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: 响应码
+      requestId:
+        type: string
+        description: 请求id
+      resultMsg:
+        type: string
+        description: 响应说明
+      errorStackTrace:
+        type: string
